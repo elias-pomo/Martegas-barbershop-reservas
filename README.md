@@ -49,8 +49,10 @@ src/proxy.ts            redirige al login si no hay sesión
    - `DATABASE_URL`: la conexión **pooled** (host con `-pooler`), la que usa la app.
    - `DATABASE_POOL_MAX`: `3` (conexiones por instancia; Vercel abre muchas en paralelo).
 2. Cargar `DEFAULT_BUSINESS_SLUG`, `SESSION_SECRET` (32+ caracteres aleatorios), `SEED_ADMIN_EMAIL` y `SEED_ADMIN_PASSWORD`.
-3. Desde tu PC, con `DIRECT_DATABASE_URL` = conexión **directa** de Neon (sin `-pooler`), ejecutar
-   `npm run db:deploy` y `npm run db:seed`. La primera migración también confirma que Neon acepta `btree_gist`.
+3. Completar `.env.production.local` (ignorado por git) con las conexiones de Neon y ejecutar desde tu PC
+   `npm run db:prod:migrate` y `npm run db:prod:seed`. Esos comandos se niegan a correr si el archivo está
+   incompleto o apunta a una base local. La primera migración también confirma que Neon acepta `btree_gist`.
+   `vercel.json` fija las funciones en São Paulo (`gru1`): crear la base de Neon en la misma región (`aws-sa-east-1`).
 4. **Uso comercial:** Vercel Hobby es solo para uso no comercial. Para probar con amigos sirve; con clientes reales,
    pasar a Vercel Pro u otro hosting.
 5. Avisos push (opcional): generar claves con `npx web-push generate-vapid-keys` y cargar
