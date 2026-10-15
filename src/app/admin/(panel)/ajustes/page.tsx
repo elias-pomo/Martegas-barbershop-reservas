@@ -3,6 +3,7 @@ import { connection } from "next/server";
 import { Suspense } from "react";
 import { getSettingsData } from "@/lib/admin-settings";
 import { requireAdmin } from "@/lib/auth";
+import { vapidPublicKey } from "@/lib/push";
 import { SettingsView } from "./settings-view";
 
 export const metadata: Metadata = { title: "Ajustes", robots: { index: false } };
@@ -27,6 +28,7 @@ async function Settings() {
   return (
     <SettingsView
       email={email}
+      vapidKey={vapidPublicKey()}
       slug={business.slug}
       info={{
         name: business.name,

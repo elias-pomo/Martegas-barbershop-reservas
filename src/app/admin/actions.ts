@@ -10,6 +10,7 @@ import {
 } from "@/lib/admin";
 import { renameCustomer } from "@/lib/admin-customers";
 import { requireAdmin } from "@/lib/auth";
+import { deleteSubscription, hasSubscription, notifyBusiness, saveSubscription } from "@/lib/push";
 
 const day = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 const time = z.string().regex(/^\d{2}:\d{2}$/);
@@ -75,6 +76,45 @@ export async function updateCustomerName(id: string, name: string): Promise<Acti
   const { business } = await requireAdmin();
   const ok = await renameCustomer(business, parsed.data.id, parsed.data.name);
   return ok ? { ok: true } : { ok: false, message: "Cliente no encontrado." };
+}
+
+/* ---------- Notificaciones push ---------- */
+
+const subscriptionSchema = z.object({
+  endpoint: z.url().max(1000),
+  keys: z.object({ p256dh: z.string().min(1).max(200), auth: z.string().min(1).max(100) }),
+});
+
+export async function subscribePush(subscription: unknown): Promise<ActionResult> {
+  const parsed = subscriptionSchema.safeParse(subscription);
+  if (!parsed.success) return { ok: false, message: "Suscripción inválida." };
+  const { userId } = await requireAdmin();
+  await saveSubscription(userId, parsed.data);
+  return { ok: true };
+}
+
+export async function unsubscribePush(endpoint: string): Promise<ActionResult> {
+  if (typeof endpoint !== "string") return { ok: false, message: "Datos inválidos." };
+  const { userId } = await requireAdmin();
+  await deleteSubscription(userId, endpoint);
+  return { ok: true };
+}
+
+export async function isPushRegistered(endpoint: string): Promise<boolean> {
+  if (typeof endpoint !== "string") return false;
+  const { userId } = await requireAdmin();
+  return hasSubscription(userId, endpoint);
+}
+
+export async function sendTestPush(): Promise<ActionResult> {
+  const { business } = await requireAdmin();
+  const sent = await notifyBusiness(business.id, {
+    title: "¡Avisos activados!",
+    body: "Así te va a llegar cada turno nuevo o cancelado.",
+    url: "/admin",
+    tag: "prueba",
+  });
+  return sent > 0 ? { ok: true } : { ok: false, message: "No se pudo enviar. Probá desactivar y volver a activar." };
 }
 
 export async function removeBlock(id: string): Promise<ActionResult> {

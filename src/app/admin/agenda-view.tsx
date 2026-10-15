@@ -21,6 +21,7 @@ import type { AppointmentStatus } from "@/lib/domain/rules";
 import { addLocalDays } from "@/lib/domain/time";
 import { dayChipParts, formatLongDate, formatPrice, formatTime } from "@/lib/format";
 import { changeStatus, removeBlock } from "./actions";
+import { InstallBanner } from "./install-banner";
 import { NewEntrySheet, type NewEntryPreset } from "./new-entry-sheet";
 import type { AgendaAppointment, AgendaBlock, AgendaData } from "./types";
 import { useMessageContext } from "./use-message-context";
@@ -41,6 +42,8 @@ export function AgendaView({ data }: { data: AgendaData }) {
           <h1 className="text-2xl font-semibold tracking-tight">Agenda</h1>
         </div>
       </header>
+
+      <InstallBanner />
 
       <WeekStrip week={week} day={day} today={today} />
 

@@ -1,7 +1,9 @@
 "use server";
 
+import { after } from "next/server";
 import { z } from "zod";
 import { createBooking, type BookingResult } from "@/lib/booking";
+import { notifyAppointment } from "@/lib/notifications";
 
 const bookingSchema = z.object({
   slug: z.string().min(1),
@@ -19,5 +21,8 @@ export async function bookAppointment(input: z.input<typeof bookingSchema>): Pro
     return { ok: false, error: { code, message: issue.message } };
   }
   const { startsAt, ...rest } = parsed.data;
-  return createBooking({ ...rest, startsAt: new Date(startsAt) });
+  const result = await createBooking({ ...rest, startsAt: new Date(startsAt) });
+  // El aviso al barbero sale después de responderle al cliente: no lo hace esperar.
+  if (result.ok) after(() => notifyAppointment("booked", result.appointment.token));
+  return result;
 }

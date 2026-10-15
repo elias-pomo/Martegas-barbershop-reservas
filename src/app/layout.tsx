@@ -16,6 +16,7 @@ const display = Bebas_Neue({
 export const metadata: Metadata = {
   title: { default: "Agendapp", template: "%s · Agendapp" },
   description: "Reservá tu turno online en segundos.",
+  icons: { icon: "/api/icon?size=64&text=A" },
 };
 
 export const viewport: Viewport = {

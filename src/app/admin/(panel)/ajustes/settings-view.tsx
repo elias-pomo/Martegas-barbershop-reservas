@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  Bell,
   Check,
   ChevronDown,
   Clock,
@@ -27,11 +28,13 @@ import {
   saveServicesAction,
   saveTemplates,
 } from "./actions";
+import { NotificationsPanel } from "./notifications-panel";
 
 type Result = { ok: true } | { ok: false; message: string };
 
 interface Props {
   email: string;
+  vapidKey: string | null;
   slug: string;
   info: { name: string; address: string; whatsapp: string; instagram: string; paymentAlias: string; paymentHolder: string };
   services: { id: string; name: string; durationMin: number; price: number; active: boolean }[];
@@ -67,6 +70,9 @@ export function SettingsView(props: Props) {
         <ExternalLink className="size-4 text-primary" aria-hidden />
       </a>
 
+      <Section icon={<Bell className="size-5" />} title="Avisos en este celular" subtitle="Turnos nuevos y cancelados">
+        <NotificationsPanel vapidKey={props.vapidKey} />
+      </Section>
       <Section icon={<Store className="size-5" />} title="Negocio" subtitle="Nombre, dirección, WhatsApp y alias">
         <InfoForm info={props.info} />
       </Section>

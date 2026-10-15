@@ -46,6 +46,16 @@ src/proxy.ts            redirige al login si no hay sesión
 1. Crear la base en Neon (o desde el Marketplace de Vercel) y cargar `DATABASE_URL` en el proyecto.
 2. Cargar `DEFAULT_BUSINESS_SLUG`, `SESSION_SECRET` (32+ caracteres aleatorios), `SEED_ADMIN_EMAIL` y `SEED_ADMIN_PASSWORD`.
 3. Ejecutar `npm run db:deploy` y `npm run db:seed` contra esa base.
+4. Avisos push (opcional): generar claves con `npx web-push generate-vapid-keys` y cargar
+   `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` y `VAPID_SUBJECT` (`mailto:tu-email`). Sin ellas la app funciona igual, sin avisos.
+
+## Avisos al barbero (PWA)
+
+- El panel se instala como app (`/panel.webmanifest`) y cada negocio tiene su manifest para clientes (`/<slug>/manifest.webmanifest`).
+- `public/sw.js` solo maneja notificaciones push (no cachea: la app no funciona offline).
+- **iPhone:** iOS 16.4+ y el panel instalado desde Safari con *Compartir → Agregar a inicio*. Desde la app instalada:
+  *Ajustes → Avisos en este celular → Activar avisos*.
+- Push necesita HTTPS: en local funciona en `localhost` con Chrome/Edge; en el celular, recién con el sitio publicado.
 
 ## Cambiar email o contraseña del panel
 
