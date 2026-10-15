@@ -29,19 +29,22 @@ export const businessSettingsSchema = z.object({
       service: z.string().default("servicio"),
     })
     .default({ staff: "barbero", service: "servicio" }),
+  /** Plantillas de WhatsApp del panel. Cada una tiene su default, así se pueden agregar nuevas sin migrar datos. */
   waTemplates: z
     .object({
-      reminder: z.string(),
-      businessCancel: z.string(),
-      generic: z.string(),
+      reminder: z
+        .string()
+        .default("Hola {nombre}! Te recuerdo tu turno de {servicio} {cuando} a las {hora} en {negocio}, {direccion}. ¡Te espero!"),
+      businessCancel: z
+        .string()
+        .default("Hola {nombre}, tuve un imprevisto y tengo que cancelar tu turno del {dia} a las {hora}. Podés reservar otro en {link}. ¡Disculpá!"),
+      confirmation: z
+        .string()
+        .default("Hola {nombre}! Te confirmo tu turno {cuando} a las {hora} en {negocio}, {direccion}. Para verlo o cancelarlo: {link} (código {codigo})."),
+      generic: z.string().default("Hola {nombre}! "),
     })
-    .default({
-      reminder:
-        "Hola {nombre}! Te recuerdo tu turno de {servicio} {cuando} a las {hora} en {negocio}, {direccion}. ¡Te espero!",
-      businessCancel:
-        "Hola {nombre}, tuve un imprevisto y tengo que cancelar tu turno del {dia} a las {hora}. Podés reservar otro en {link}. ¡Disculpá!",
-      generic: "Hola {nombre}! ",
-    }),
+    // prefault (no default): en Zod 4 así se aplican los defaults internos cuando falta el objeto.
+    .prefault({}),
 });
 
 export type BusinessSettings = z.infer<typeof businessSettingsSchema>;

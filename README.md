@@ -36,10 +36,12 @@ prisma/                 schema, migraciones (incluye restricción anti-superposi
 src/lib/domain/         lógica de negocio pura y testeada (disponibilidad, reglas, teléfonos, WhatsApp)
 src/lib/                acceso a datos (db, business)
 src/app/[slug]/         páginas públicas de cada negocio
+src/app/admin/          panel del barbero (login en /admin/login)
+src/proxy.ts            redirige al login si no hay sesión
 ```
 
 ## Deploy (Vercel)
 
 1. Crear la base en Neon (o desde el Marketplace de Vercel) y cargar `DATABASE_URL` en el proyecto.
-2. Cargar `DEFAULT_BUSINESS_SLUG`, `SEED_ADMIN_EMAIL` y `SEED_ADMIN_PASSWORD`.
+2. Cargar `DEFAULT_BUSINESS_SLUG`, `SESSION_SECRET` (32+ caracteres aleatorios), `SEED_ADMIN_EMAIL` y `SEED_ADMIN_PASSWORD`.
 3. Ejecutar `npm run db:deploy` y `npm run db:seed` contra esa base.

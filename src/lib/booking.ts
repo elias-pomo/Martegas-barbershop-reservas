@@ -141,7 +141,8 @@ export function hashCancelCode(token: string, code: string): string {
   return createHash("sha256").update(`${token}:${code}`).digest("hex");
 }
 
-const isOverlapViolation = (e: unknown) =>
+/** La base rechazó un turno por la restricción anti-superposición. */
+export const isOverlapViolation = (e: unknown) =>
   e instanceof Error && /appointment_no_overlap|23P01|exclusion constraint|conflicting key/i.test(
     `${e.message} ${JSON.stringify(e)}`,
   );
