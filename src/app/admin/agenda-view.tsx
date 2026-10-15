@@ -3,15 +3,19 @@
 import { AnimatePresence, motion } from "motion/react";
 import {
   Ban,
+  Banknote,
+  CheckCheck,
   ChevronLeft,
   ChevronRight,
   Home,
+  Landmark,
   Loader2,
   MessageCircle,
   MoreHorizontal,
   Plus,
   Undo2,
   UserX,
+  Wallet,
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -20,8 +24,10 @@ import { businessCancelLink, reminderLink } from "@/lib/domain/messages";
 import type { AppointmentStatus } from "@/lib/domain/rules";
 import { addLocalDays } from "@/lib/domain/time";
 import { dayChipParts, formatLongDate, formatPrice, formatTime } from "@/lib/format";
-import { changeStatus, removeBlock } from "./actions";
+import { changeStatus, registerPayment, reminderSent, removeBlock } from "./actions";
 import { InstallBanner } from "./install-banner";
+import { RemindersSheet } from "./reminders-sheet";
+import { WaitlistSection } from "./waitlist-section";
 import { NewEntrySheet, type NewEntryPreset } from "./new-entry-sheet";
 import type { AgendaAppointment, AgendaBlock, AgendaData, AgendaEntry } from "./types";
 import { useMessageContext } from "./use-message-context";
@@ -39,6 +45,10 @@ export function AgendaView({ data }: { data: AgendaData }) {
   const appointments = entries.flatMap((e) => (e.kind === "appointment" && e.item.active ? [e.item] : []));
   const total = appointments.reduce((sum, a) => sum + a.price, 0);
   const isClosedDay = !entries.some((e) => e.kind === "free") && appointments.length === 0;
+  // Turnos que todavía no empezaron: los que tiene sentido recordar.
+  const toRemind = appointments.filter((a) => a.status === "CONFIRMED" && a.start > data.now);
+  const pendingReminders = toRemind.filter((a) => !a.reminderSentAt).length;
+  const [remindersOpen, setRemindersOpen] = useState(false);
 
   return (
     <>
@@ -64,12 +74,35 @@ export function AgendaView({ data }: { data: AgendaData }) {
               : `${appointments.length} ${appointments.length === 1 ? "turno" : "turnos"} · ${formatPrice(total)}`}
           </p>
         </div>
-        {day !== today && (
-          <Link href="/admin" className="text-sm font-medium text-primary">
-            Ir a hoy
-          </Link>
-        )}
+        <div className="flex flex-col items-end gap-1">
+          {day !== today && (
+            <Link href="/admin" className="text-sm font-medium text-primary">
+              Ir a hoy
+            </Link>
+          )}
+          {toRemind.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setRemindersOpen(true)}
+              className={`flex h-9 items-center gap-1.5 rounded-full px-3 text-sm font-semibold ${
+                pendingReminders ? "bg-accent/15 text-accent" : "bg-surface text-muted"
+              }`}
+            >
+              {pendingReminders ? <MessageCircle className="size-4" aria-hidden /> : <CheckCheck className="size-4" aria-hidden />}
+              {pendingReminders ? `Recordar a todos (${pendingReminders})` : "Recordados"}
+            </button>
+          )}
+        </div>
       </div>
+
+      <WaitlistSection business={business} items={data.waitlist} />
+
+      <RemindersSheet
+        open={remindersOpen}
+        onClose={() => setRemindersOpen(false)}
+        business={business}
+        appointments={toRemind}
+      />
 
       <ul className="mt-3 flex flex-col gap-2">
         {visibleEntries.map((entry) => (
@@ -208,6 +241,17 @@ function AppointmentCard({ appointment: a, data }: { appointment: AgendaAppointm
   const isFuture = a.status === "CONFIRMED";
   const badge = STATUS_BADGE[a.status];
   const message = { customerName: a.customer.name, phone: a.customer.phone, serviceName: a.serviceName, startsAt: a.start, token: a.token };
+  // El cobro se registra cuando el turno ya empezó (o terminó). `now` viene del servidor: sin desajustes al hidratar.
+  const canCharge = a.status === "ATTENDED" || (a.status === "CONFIRMED" && a.start <= data.now);
+
+  const pay = (method: "CASH" | "TRANSFER" | null) => {
+    setError(null);
+    startTransition(async () => {
+      const result = await registerPayment(a.id, method);
+      if (!result.ok) setError(result.message);
+      else router.refresh();
+    });
+  };
 
   const run = (status: Parameters<typeof changeStatus>[1]) => {
     setError(null);
@@ -266,10 +310,13 @@ function AppointmentCard({ appointment: a, data }: { appointment: AgendaAppointm
               href={reminderLink(ctx, message)}
               target="_blank"
               rel="noreferrer"
-              className="flex h-10 flex-1 items-center justify-center gap-1.5 rounded-lg bg-accent/15 text-sm font-semibold text-accent transition active:scale-[0.98]"
+              onClick={() => reminderSent(a.id).then(() => router.refresh())}
+              className={`flex h-10 flex-1 items-center justify-center gap-1.5 rounded-lg text-sm font-semibold transition active:scale-[0.98] ${
+                a.reminderSentAt ? "bg-surface-2 text-muted" : "bg-accent/15 text-accent"
+              }`}
             >
-              <MessageCircle className="size-4" aria-hidden />
-              Recordar
+              {a.reminderSentAt ? <CheckCheck className="size-4" aria-hidden /> : <MessageCircle className="size-4" aria-hidden />}
+              {a.reminderSentAt ? "Recordado" : "Recordar"}
             </a>
           )}
           {(a.status === "NO_SHOW" || a.status === "LATE_CANCEL") && (
@@ -297,6 +344,42 @@ function AppointmentCard({ appointment: a, data }: { appointment: AgendaAppointm
               <MoreHorizontal className="size-4" aria-hidden />
               {!isFuture && "Marcar falta"}
             </button>
+          )}
+        </div>
+      )}
+
+      {canCharge && (
+        <div className="flex items-center gap-2 border-t border-border px-3 py-2">
+          {a.paymentMethod ? (
+            <>
+              <span className="flex flex-1 items-center gap-1.5 text-sm font-medium text-accent">
+                <Wallet className="size-4" aria-hidden />
+                Cobrado · {a.paymentMethod === "CASH" ? "efectivo" : "transferencia"}
+              </span>
+              <button type="button" disabled={pending} onClick={() => pay(null)} className="h-9 rounded-lg px-3 text-xs text-muted hover:bg-surface-2">
+                Cambiar
+              </button>
+            </>
+          ) : (
+            <>
+              <span className="text-xs text-muted">Cobrar:</span>
+              <button
+                type="button"
+                disabled={pending}
+                onClick={() => pay("CASH")}
+                className="flex h-9 flex-1 items-center justify-center gap-1 rounded-lg bg-surface-2 text-sm font-medium active:scale-[0.98] disabled:opacity-60"
+              >
+                <Banknote className="size-4" aria-hidden /> Efectivo
+              </button>
+              <button
+                type="button"
+                disabled={pending}
+                onClick={() => pay("TRANSFER")}
+                className="flex h-9 flex-1 items-center justify-center gap-1 rounded-lg bg-surface-2 text-sm font-medium active:scale-[0.98] disabled:opacity-60"
+              >
+                <Landmark className="size-4" aria-hidden /> Transferencia
+              </button>
+            </>
           )}
         </div>
       )}

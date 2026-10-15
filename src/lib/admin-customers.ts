@@ -97,8 +97,13 @@ export interface MonthSummary {
   month: string;
   /** Cortes realizados (cuenta personas: un turno a domicilio de 3 son 3 cortes). */
   cuts: number;
-  /** Suma de precios de los turnos asistidos. Es una estimación: no se registra el cobro. */
+  /** Suma de precios de los turnos asistidos (lo que debería haberse cobrado). */
   revenue: number;
+  /** Cobrado y registrado por el barbero, por medio de pago. */
+  cash: number;
+  transfer: number;
+  /** Turnos asistidos sin cobro registrado. */
+  unregistered: number;
 }
 
 /**
@@ -110,11 +115,31 @@ export async function getMonthlySummary(business: Business, now = new Date()) {
 
   const summarize = async (offset: number): Promise<MonthSummary> => {
     const { start, end } = monthRange(today, business.timezone, offset);
-    const agg = await db.appointment.aggregate({
-      where: { businessId: business.id, status: "ATTENDED", startsAt: { gte: start, lt: end } },
-      _sum: { people: true, price: true },
+    const inMonth = { businessId: business.id, startsAt: { gte: start, lt: end } };
+    const [attended, paid] = await Promise.all([
+      db.appointment.aggregate({ where: { ...inMonth, status: "ATTENDED" }, _sum: { people: true, price: true } }),
+      // Un turno se puede cobrar antes de que termine: cuenta lo registrado aunque siga "confirmado".
+      db.appointment.groupBy({
+        by: ["paymentMethod"],
+        where: { ...inMonth, status: { in: ["ATTENDED", "CONFIRMED"] }, paymentMethod: { not: null } },
+        _sum: { price: true },
+      }),
+    ]);
+    const sumOf = (m: "CASH" | "TRANSFER") => paid.find((p) => p.paymentMethod === m)?._sum.price ?? 0;
+    const cash = sumOf("CASH");
+    const transfer = sumOf("TRANSFER");
+    const unpaidAttended = await db.appointment.aggregate({
+      where: { ...inMonth, status: "ATTENDED", paymentMethod: null },
+      _sum: { price: true },
     });
-    return { month: monthStartOf(today, offset), cuts: agg._sum.people ?? 0, revenue: agg._sum.price ?? 0 };
+    return {
+      month: monthStartOf(today, offset),
+      cuts: attended._sum.people ?? 0,
+      revenue: attended._sum.price ?? 0,
+      cash,
+      transfer,
+      unregistered: unpaidAttended._sum.price ?? 0,
+    };
   };
 
   const { end } = monthRange(today, business.timezone);

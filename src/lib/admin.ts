@@ -73,6 +73,8 @@ export async function getDayAgenda(business: Business, day: string, now = new Da
       serviceName: a.service?.name ?? "Turno especial",
       customer: { id: a.customer.id, name: a.customer.name, phone: a.customer.phone },
       customerNoShows: noShowsBy.get(a.customerId) ?? 0,
+      paymentMethod: a.paymentMethod,
+      reminderSentAt: a.reminderSentAt,
     })),
     blocks: blocks.map((b) => ({ id: b.id, start: b.startsAt, end: b.endsAt, reason: b.reason })),
   });
@@ -277,6 +279,31 @@ export async function createBlock(
     }),
   ]);
   return { ok: true, conflicts, blocked: true };
+}
+
+/* ---------- Cobro y recordatorios ---------- */
+
+/** Registra (o borra, con `null`) cómo se cobró un turno. Solo turnos confirmados o asistidos. */
+export async function setPayment(
+  business: Business,
+  id: string,
+  method: "CASH" | "TRANSFER" | null,
+  now = new Date(),
+): Promise<ActionResult> {
+  const { count } = await db.appointment.updateMany({
+    where: { id, businessId: business.id, status: { in: ["CONFIRMED", "ATTENDED"] } },
+    data: { paymentMethod: method, paidAt: method ? now : null },
+  });
+  return count ? { ok: true } : { ok: false, message: "No se puede registrar el cobro de ese turno." };
+}
+
+/** Marca que se mandó el recordatorio por WhatsApp (se ve en todos los dispositivos). */
+export async function markReminderSent(business: Business, id: string, now = new Date()): Promise<ActionResult> {
+  const { count } = await db.appointment.updateMany({
+    where: { id, businessId: business.id, status: "CONFIRMED" },
+    data: { reminderSentAt: now },
+  });
+  return count ? { ok: true } : { ok: false, message: "Turno no encontrado." };
 }
 
 export async function deleteBlock(business: Business, id: string): Promise<ActionResult> {

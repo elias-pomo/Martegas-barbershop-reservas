@@ -72,6 +72,25 @@ export function confirmationLink(ctx: MessageContext, a: MessageAppointment & { 
   );
 }
 
+/** Ofrecer un lugar liberado a alguien de la lista de espera de ese día (`day` = fecha local). */
+export function waitlistOfferLink(ctx: MessageContext, entry: { name: string; phone: string; day: string }) {
+  const dia = new Date(`${entry.day}T12:00:00Z`).toLocaleDateString("es-AR", {
+    timeZone: "UTC",
+    weekday: "long",
+    day: "numeric",
+    month: "long",
+  });
+  return waLink(
+    entry.phone,
+    renderTemplate(ctx.templates.waitlistOffer, {
+      nombre: firstName(entry.name),
+      dia,
+      negocio: ctx.businessName,
+      link: `${ctx.origin}/${ctx.slug}/reservar`,
+    }),
+  );
+}
+
 export function genericLink(ctx: MessageContext, a: Pick<MessageAppointment, "customerName" | "phone">) {
   return waLink(a.phone, renderTemplate(ctx.templates.generic, { nombre: firstName(a.customerName) }));
 }

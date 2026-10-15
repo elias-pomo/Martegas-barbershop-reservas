@@ -88,6 +88,7 @@ const templatesSchema = z.object({
   reminder: z.string().trim().min(5).max(500),
   businessCancel: z.string().trim().min(5).max(500),
   confirmation: z.string().trim().min(5).max(500),
+  waitlistOffer: z.string().trim().min(5).max(500),
   generic: z.string().max(500),
 });
 

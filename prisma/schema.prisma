@@ -28,6 +28,17 @@ enum AppointmentStatus {
   CANCELLED_BY_BUSINESS
 }
 
+enum PaymentMethod {
+  CASH
+  TRANSFER
+}
+
+enum WaitlistStatus {
+  WAITING
+  CONTACTED
+  CLOSED
+}
+
 enum CreatedBy {
   CUSTOMER
   ADMIN
@@ -55,6 +66,7 @@ model Business {
   services     Service[]
   customers    Customer[]
   appointments Appointment[]
+  waitlist     WaitlistEntry[]
 }
 
 model User {
@@ -174,6 +186,11 @@ model Appointment {
   createdBy      CreatedBy         @default(CUSTOMER)
   createdAt      DateTime          @default(now()) @db.Timestamptz(3)
   cancelledAt    DateTime?         @db.Timestamptz(3)
+  /// Cuándo el barbero mandó el recordatorio por WhatsApp.
+  reminderSentAt DateTime?         @db.Timestamptz(3)
+  /// Cómo se cobró (null = sin registrar).
+  paymentMethod  PaymentMethod?
+  paidAt         DateTime?         @db.Timestamptz(3)
 
   business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
   staff    Staff    @relation(fields: [staffId], references: [id], onDelete: Cascade)
@@ -204,4 +221,33 @@ model CancelAttempt {
   createdAt  DateTime @default(now()) @db.Timestamptz(3)
 
   @@index([businessId, phone, createdAt])
+}
+
+/// Clientes que quieren un turno en un día que está completo.
+model WaitlistEntry {
+  id         String         @id @default(cuid())
+  businessId String
+  /// Día local pedido, "YYYY-MM-DD".
+  day        String
+  serviceId  String?
+  name       String
+  /// E.164
+  phone      String
+  status     WaitlistStatus @default(WAITING)
+  createdAt  DateTime       @default(now()) @db.Timestamptz(3)
+
+  business Business @relation(fields: [businessId], references: [id], onDelete: Cascade)
+
+  @@unique([businessId, day, phone])
+  @@index([businessId, day, status])
+}
+
+/// Intentos fallidos de login (por email y por IP) para bloquear fuerza bruta.
+model LoginAttempt {
+  id        String   @id @default(cuid())
+  /// "email:<email>" o "ip:<ip>"
+  key       String
+  createdAt DateTime @default(now()) @db.Timestamptz(3)
+
+  @@index([key, createdAt])
 }

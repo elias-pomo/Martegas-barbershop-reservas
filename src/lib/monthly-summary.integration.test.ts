@@ -42,6 +42,8 @@ describe.skipIf(!process.env.DATABASE_URL)("resumen mensual (integración)", () 
         people,
         cancelToken: randomBytes(12).toString("hex"),
         cancelCodeHash: "x",
+        // Enero: el de las 00:30 se cobró en efectivo y el domicilio por transferencia.
+        paymentMethod: start === "2030-01-01T00:30" ? ("CASH" as const) : start === "2030-01-05T18:00" ? ("TRANSFER" as const) : null,
       })),
     });
   });
@@ -53,8 +55,23 @@ describe.skipIf(!process.env.DATABASE_URL)("resumen mensual (integración)", () 
 
   it("suma cortes (personas) y recaudación de turnos asistidos por mes local", async () => {
     const summary = await getMonthlySummary(business, at("2030-01-15T10:00"));
-    expect(summary.current).toEqual({ month: "2030-01-01", cuts: 3, revenue: 42000 });
-    expect(summary.previous).toEqual({ month: "2029-12-01", cuts: 2, revenue: 27000 });
+    expect(summary.current).toEqual({
+      month: "2030-01-01",
+      cuts: 3,
+      revenue: 42000,
+      cash: 12000,
+      transfer: 30000,
+      unregistered: 0,
+    });
+    // Diciembre no tiene cobros registrados: todo queda "sin marcar".
+    expect(summary.previous).toEqual({
+      month: "2029-12-01",
+      cuts: 2,
+      revenue: 27000,
+      cash: 0,
+      transfer: 0,
+      unregistered: 27000,
+    });
     expect(summary.pending).toEqual({ cuts: 1, revenue: 15000 });
   });
 });

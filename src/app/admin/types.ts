@@ -18,6 +18,17 @@ export interface AgendaAppointment {
   serviceName: string;
   customer: { id: string; name: string; phone: string };
   customerNoShows: number;
+  paymentMethod: "CASH" | "TRANSFER" | null;
+  reminderSentAt: string | null;
+}
+
+export interface WaitlistItem {
+  id: string;
+  day: string;
+  name: string;
+  phone: string;
+  status: "WAITING" | "CONTACTED";
+  serviceName: string | null;
 }
 
 export interface AgendaBlock {
@@ -44,8 +55,11 @@ export interface AgendaBusiness {
 
 export interface AgendaData {
   business: AgendaBusiness;
+  /** Hora del servidor al armar la página (ISO), para decidir qué turnos ya empezaron. */
+  now: string;
   day: string;
   today: string;
   week: { date: string; count: number }[];
+  waitlist: WaitlistItem[];
   entries: AgendaEntry[];
 }

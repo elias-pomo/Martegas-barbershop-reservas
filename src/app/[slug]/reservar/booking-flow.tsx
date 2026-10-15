@@ -32,6 +32,7 @@ import {
   type SavedAppointment,
 } from "@/lib/saved-appointments";
 import { bookAppointment } from "./actions";
+import { WaitlistForm } from "./waitlist-form";
 
 export interface BookingBusiness {
   slug: string;
@@ -297,7 +298,10 @@ function SlotStep({
         setSelectedDate((current) =>
           current && json.days.some((d) => d.date === current && d.slots.length)
             ? current
-            : (json.days.find((d) => d.slots.length)?.date ?? json.days[0]?.date ?? null),
+            : (json.days.find((d) => d.slots.length)?.date ??
+              json.days.find((d) => d.open)?.date ??
+              json.days[0]?.date ??
+              null),
         );
       })
       .catch(() => {
@@ -309,7 +313,8 @@ function SlotStep({
   }, [business.slug, service.id, service.name, attempt]);
 
   const day = data?.days.find((d) => d.date === selectedDate);
-  const noSlotsAtAll = data && data.days.every((d) => d.slots.length === 0);
+  // Sin días abiertos no hay nada que mostrar; con días completos se ofrece la lista de espera.
+  const noOpenDays = data && data.days.every((d) => !d.open);
 
   return (
     <>
@@ -339,9 +344,9 @@ function SlotStep({
 
       {!data && !failed && <SlotsSkeleton />}
 
-      {data && noSlotsAtAll && <NoSlots business={business} />}
+      {data && noOpenDays && <NoSlots business={business} />}
 
-      {data && !noSlotsAtAll && (
+      {data && !noOpenDays && (
         <>
           <div className="-mx-5 mt-6 flex gap-2 overflow-x-auto px-5 pb-2 [scrollbar-width:none]">
             {data.days.map((d) => {
@@ -352,7 +357,7 @@ function SlotStep({
                 <button
                   key={d.date}
                   type="button"
-                  disabled={!available}
+                  disabled={!d.open}
                   onClick={() => setSelectedDate(d.date)}
                   aria-pressed={selected}
                   className={`flex w-16 shrink-0 flex-col items-center rounded-2xl border py-3 transition active:scale-95 ${
@@ -360,7 +365,9 @@ function SlotStep({
                       ? "border-primary bg-primary text-primary-foreground shadow-lg shadow-primary/25"
                       : available
                         ? "border-border bg-surface hover:border-primary/60"
-                        : "border-transparent bg-surface/40 text-muted/50"
+                        : d.open
+                          ? "border-dashed border-border bg-surface/60 text-muted"
+                          : "border-transparent bg-surface/40 text-muted/50"
                   }`}
                 >
                   <span className="text-xs uppercase">{weekday}</span>
@@ -373,7 +380,11 @@ function SlotStep({
             })}
           </div>
 
-          {day && (
+          {day && day.open && day.slots.length === 0 && (
+            <WaitlistForm key={day.date} business={business} service={service} day={day.date} />
+          )}
+
+          {day && day.slots.length > 0 && (
             <div className="mt-4">
               <p className="text-sm text-muted first-letter:uppercase">
                 {formatLongDate(`${day.date}T12:00:00Z`, "UTC")}

@@ -3,7 +3,9 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { PrismaClient } from "@/generated/prisma/client";
 
 function createClient() {
-  const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+  // DATABASE_POOL_MAX: en local con `prisma dev` (PGlite) conviene 1, porque corta conexiones simultáneas.
+  const max = Number(process.env.DATABASE_POOL_MAX) || undefined;
+  const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL, max });
   return new PrismaClient({ adapter });
 }
 

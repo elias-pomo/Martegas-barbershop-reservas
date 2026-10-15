@@ -41,6 +41,9 @@ export const businessSettingsSchema = z.object({
       confirmation: z
         .string()
         .default("Hola {nombre}! Te confirmo tu turno {cuando} a las {hora} en {negocio}, {direccion}. Para verlo o cancelarlo: {link} (código {codigo})."),
+      waitlistOffer: z
+        .string()
+        .default("Hola {nombre}! Se liberó un lugar el {dia} en {negocio}. Si lo querés, reservalo acá: {link} (es por orden de llegada)."),
       generic: z.string().default("Hola {nombre}! "),
     })
     // prefault (no default): en Zod 4 así se aplican los defaults internos cuando falta el objeto.

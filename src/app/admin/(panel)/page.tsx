@@ -5,6 +5,7 @@ import { getDayAgenda, getWeekCounts, persistAttended } from "@/lib/admin";
 import { requireAdmin } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { localDateOf } from "@/lib/domain/time";
+import { getWaitlistForDay } from "@/lib/waitlist";
 import { AgendaView } from "../agenda-view";
 import type { AgendaData } from "../types";
 
@@ -28,16 +29,19 @@ async function Agenda({ searchParams }: Pick<PageProps<"/admin">, "searchParams"
   const day = typeof query.dia === "string" && /^\d{4}-\d{2}-\d{2}$/.test(query.dia) ? query.dia : today;
 
   await persistAttended(business.id, now);
-  const [entries, week, services] = await Promise.all([
+  const [entries, week, services, waitlist] = await Promise.all([
     getDayAgenda(business, day, now),
     getWeekCounts(business, day),
     db.service.findMany({ where: { businessId: business.id, active: true }, orderBy: { sortOrder: "asc" } }),
+    day >= today ? getWaitlistForDay(business, day) : [],
   ]);
 
   const data: AgendaData = {
+    now: now.toISOString(),
     day,
     today,
     week,
+    waitlist,
     business: {
       slug: business.slug,
       name: business.name,
@@ -59,7 +63,12 @@ async function Agenda({ searchParams }: Pick<PageProps<"/admin">, "searchParams"
           : {
               kind: "appointment",
               start: e.start.toISOString(),
-              item: { ...e.item, start: e.item.start.toISOString(), end: e.item.end.toISOString() },
+              item: {
+                ...e.item,
+                start: e.item.start.toISOString(),
+                end: e.item.end.toISOString(),
+                reminderSentAt: e.item.reminderSentAt?.toISOString() ?? null,
+              },
             },
     ),
   };

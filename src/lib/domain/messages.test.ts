@@ -1,5 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { businessCancelLink, confirmationLink, relativeDay, reminderLink, type MessageContext } from "./messages";
+import {
+  businessCancelLink,
+  confirmationLink,
+  relativeDay,
+  reminderLink,
+  waitlistOfferLink,
+  type MessageContext,
+} from "./messages";
 import { parseSettings } from "./settings";
 
 const TZ = "America/Argentina/Tucuman";
@@ -43,6 +50,13 @@ describe("mensajes de WhatsApp", () => {
 
   it("cancelación del negocio con link para reservar", () => {
     expect(text(businessCancelLink(ctx, appointment))).toContain("https://agendapp.test/martegas/reservar");
+  });
+
+  it("oferta de lugar liberado a la lista de espera", () => {
+    const t = text(waitlistOfferLink(ctx, { name: "Ana López", phone: "+5493818000001", day: "2026-10-16" }));
+    expect(t).toContain("Hola Ana!");
+    expect(t).toContain("viernes, 16 de octubre");
+    expect(t).toContain("https://agendapp.test/martegas/reservar");
   });
 
   it("confirmación de turno cargado a mano con link y código", () => {

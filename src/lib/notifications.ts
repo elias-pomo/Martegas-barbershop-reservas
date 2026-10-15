@@ -2,11 +2,12 @@ import "server-only";
 import { db } from "./db";
 import { localDateOf } from "./domain/time";
 import { notifyBusiness, type PushPayload } from "./push";
+import { countWaiting } from "./waitlist";
 
 /** Texto de la notificación al barbero. Puro, para poder testearlo. */
 export function appointmentPayload(
   kind: "booked" | "cancelled",
-  a: { customerName: string; serviceName: string; startsAt: Date; timeZone: string },
+  a: { customerName: string; serviceName: string; startsAt: Date; timeZone: string; waiting?: number },
 ): PushPayload {
   const when = a.startsAt.toLocaleString("es-AR", {
     timeZone: a.timeZone,
@@ -26,7 +27,9 @@ export function appointmentPayload(
       }
     : {
         title: `Turno cancelado · ${when}`,
-        body: `${a.customerName} canceló ${a.serviceName.toLowerCase()}. El horario quedó libre.`,
+        body: a.waiting
+          ? `${a.customerName} canceló. Hay ${a.waiting} en lista de espera: ofrecele el lugar.`
+          : `${a.customerName} canceló ${a.serviceName.toLowerCase()}. El horario quedó libre.`,
         url: `/admin?dia=${day}`,
         tag: `turno-${a.startsAt.toISOString()}`,
       };
@@ -40,6 +43,10 @@ export async function notifyAppointment(kind: "booked" | "cancelled", cancelToke
       include: { customer: true, service: true, business: true },
     });
     if (!appointment) return;
+    const waiting =
+      kind === "cancelled"
+        ? await countWaiting(appointment.businessId, localDateOf(appointment.startsAt, appointment.business.timezone))
+        : 0;
     await notifyBusiness(
       appointment.businessId,
       appointmentPayload(kind, {
@@ -47,6 +54,7 @@ export async function notifyAppointment(kind: "booked" | "cancelled", cancelToke
         serviceName: appointment.service?.name ?? "Turno especial",
         startsAt: appointment.startsAt,
         timeZone: appointment.business.timezone,
+        waiting,
       }),
     );
   } catch (e) {

@@ -48,7 +48,7 @@ interface Props {
     noShowBlockThreshold: number;
     specialSurchargePerPerson: number;
   };
-  templates: { reminder: string; businessCancel: string; confirmation: string; generic: string };
+  templates: { reminder: string; businessCancel: string; confirmation: string; waitlistOffer: string; generic: string };
 }
 
 const input =
@@ -431,6 +431,7 @@ const TEMPLATE_FIELDS: { key: keyof Props["templates"]; label: string; vars: str
   { key: "reminder", label: "Recordatorio", vars: "{nombre} {servicio} {cuando} {hora} {negocio} {direccion}" },
   { key: "confirmation", label: "Confirmación (turno cargado por vos)", vars: "{nombre} {cuando} {hora} {negocio} {direccion} {link} {codigo}" },
   { key: "businessCancel", label: "Cancelación tuya", vars: "{nombre} {dia} {hora} {link}" },
+  { key: "waitlistOffer", label: "Lugar liberado (lista de espera)", vars: "{nombre} {dia} {negocio} {link}" },
   { key: "generic", label: "Saludo (botón WhatsApp del cliente)", vars: "{nombre}" },
 ];
 

@@ -5,12 +5,15 @@ import {
   createBlock,
   createManualAppointment,
   deleteBlock,
+  markReminderSent,
   setAppointmentStatus,
+  setPayment,
   type ActionResult,
 } from "@/lib/admin";
 import { renameCustomer } from "@/lib/admin-customers";
 import { requireAdmin } from "@/lib/auth";
 import { deleteSubscription, hasSubscription, notifyBusiness, saveSubscription } from "@/lib/push";
+import { setWaitlistStatus } from "@/lib/waitlist";
 
 const day = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
 const time = z.string().regex(/^\d{2}:\d{2}$/);
@@ -76,6 +79,26 @@ export async function updateCustomerName(id: string, name: string): Promise<Acti
   const { business } = await requireAdmin();
   const ok = await renameCustomer(business, parsed.data.id, parsed.data.name);
   return ok ? { ok: true } : { ok: false, message: "Cliente no encontrado." };
+}
+
+export async function registerPayment(id: string, method: "CASH" | "TRANSFER" | null): Promise<ActionResult> {
+  const parsed = z.object({ id: z.string().min(1), method: z.enum(["CASH", "TRANSFER"]).nullable() }).safeParse({ id, method });
+  if (!parsed.success) return invalid(parsed.error);
+  const { business } = await requireAdmin();
+  return setPayment(business, parsed.data.id, parsed.data.method);
+}
+
+export async function reminderSent(id: string): Promise<ActionResult> {
+  if (typeof id !== "string" || !id) return { ok: false, message: "Turno inválido." };
+  const { business } = await requireAdmin();
+  return markReminderSent(business, id);
+}
+
+export async function updateWaitlist(id: string, status: "CONTACTED" | "CLOSED"): Promise<ActionResult> {
+  const parsed = z.object({ id: z.string().min(1), status: z.enum(["CONTACTED", "CLOSED"]) }).safeParse({ id, status });
+  if (!parsed.success) return invalid(parsed.error);
+  const { business } = await requireAdmin();
+  return setWaitlistStatus(business, parsed.data.id, parsed.data.status);
 }
 
 /* ---------- Notificaciones push ---------- */

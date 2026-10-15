@@ -5,8 +5,10 @@ import {
   createManualAppointment,
   deleteBlock,
   getDayAgenda,
+  markReminderSent,
   persistAttended,
   setAppointmentStatus,
+  setPayment,
 } from "./admin";
 import type { Admin } from "./auth";
 import { createBooking, getServiceAvailability } from "./booking";
@@ -125,6 +127,25 @@ describe.skipIf(!process.env.DATABASE_URL)("panel del barbero (integración)", (
     const availability = await getServiceAvailability(slug, corteId, NOW);
     const wednesday = availability!.days.find((d) => d.date === "2030-01-09")!;
     expect(wednesday.slots.map((s) => s.start.toISOString())).toContain(at("2030-01-09T17:00").toISOString());
+  });
+
+  it("registra el cobro y el recordatorio, y no permite cobrar una falta", async () => {
+    const a = await db.appointment.findFirstOrThrow({ where: { businessId: business.id, status: "ATTENDED" } });
+    expect(await setPayment(business, a.id, "TRANSFER", NOW)).toEqual({ ok: true });
+    expect((await db.appointment.findUniqueOrThrow({ where: { id: a.id } })).paymentMethod).toBe("TRANSFER");
+    expect(await setPayment(business, a.id, null, NOW)).toEqual({ ok: true });
+    expect((await db.appointment.findUniqueOrThrow({ where: { id: a.id } })).paidAt).toBeNull();
+
+    const upcoming = await createManualAppointment(business, {
+      day: "2030-01-11", time: "16:00", type: "REGULAR", serviceId: corteId, durationMin: 60, price: 12000, people: 1, name: "R", phone: "381 5000009",
+    });
+    if (!upcoming.ok) throw new Error("no cargó");
+    const u = await db.appointment.findUniqueOrThrow({ where: { cancelToken: upcoming.token } });
+    expect(await markReminderSent(business, u.id, NOW)).toEqual({ ok: true });
+    expect((await db.appointment.findUniqueOrThrow({ where: { id: u.id } })).reminderSentAt).toEqual(NOW);
+
+    await setAppointmentStatus(business, u.id, "NO_SHOW", NOW);
+    expect(await setPayment(business, u.id, "CASH", NOW)).toMatchObject({ ok: false });
   });
 
   it("no permite tocar turnos de otro negocio", async () => {
