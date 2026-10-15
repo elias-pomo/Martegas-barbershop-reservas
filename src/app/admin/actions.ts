@@ -8,6 +8,7 @@ import {
   setAppointmentStatus,
   type ActionResult,
 } from "@/lib/admin";
+import { renameCustomer } from "@/lib/admin-customers";
 import { requireAdmin } from "@/lib/auth";
 
 const day = z.string().regex(/^\d{4}-\d{2}-\d{2}$/);
@@ -66,6 +67,14 @@ export async function addBlock(input: z.input<typeof blockSchema>) {
   if (!parsed.success) return invalid(parsed.error);
   const { business } = await requireAdmin();
   return createBlock(business, parsed.data);
+}
+
+export async function updateCustomerName(id: string, name: string): Promise<ActionResult> {
+  const parsed = z.object({ id: z.string().min(1), name: z.string().trim().min(2, "Nombre muy corto").max(60) }).safeParse({ id, name });
+  if (!parsed.success) return invalid(parsed.error);
+  const { business } = await requireAdmin();
+  const ok = await renameCustomer(business, parsed.data.id, parsed.data.name);
+  return ok ? { ok: true } : { ok: false, message: "Cliente no encontrado." };
 }
 
 export async function removeBlock(id: string): Promise<ActionResult> {

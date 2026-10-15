@@ -5,8 +5,8 @@ import { getDayAgenda, getWeekCounts, persistAttended } from "@/lib/admin";
 import { requireAdmin } from "@/lib/auth";
 import { db } from "@/lib/db";
 import { localDateOf } from "@/lib/domain/time";
-import { AgendaView } from "./agenda-view";
-import type { AgendaData } from "./types";
+import { AgendaView } from "../agenda-view";
+import type { AgendaData } from "../types";
 
 export const metadata: Metadata = { title: "Agenda", robots: { index: false } };
 

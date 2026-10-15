@@ -7,7 +7,6 @@ import {
   ChevronRight,
   Home,
   Loader2,
-  LogOut,
   MessageCircle,
   MoreHorizontal,
   Plus,
@@ -21,7 +20,6 @@ import { businessCancelLink, reminderLink } from "@/lib/domain/messages";
 import type { AppointmentStatus } from "@/lib/domain/rules";
 import { addLocalDays } from "@/lib/domain/time";
 import { dayChipParts, formatLongDate, formatPrice, formatTime } from "@/lib/format";
-import { logout } from "./login/actions";
 import { changeStatus, removeBlock } from "./actions";
 import { NewEntrySheet, type NewEntryPreset } from "./new-entry-sheet";
 import type { AgendaAppointment, AgendaBlock, AgendaData } from "./types";
@@ -42,15 +40,6 @@ export function AgendaView({ data }: { data: AgendaData }) {
           <p className="text-xs uppercase tracking-widest text-muted">{business.name}</p>
           <h1 className="text-2xl font-semibold tracking-tight">Agenda</h1>
         </div>
-        <form action={logout}>
-          <button
-            type="submit"
-            aria-label="Cerrar sesión"
-            className="flex size-11 items-center justify-center rounded-full text-muted hover:bg-surface hover:text-foreground"
-          >
-            <LogOut className="size-5" />
-          </button>
-        </form>
       </header>
 
       <WeekStrip week={week} day={day} today={today} />
@@ -100,7 +89,7 @@ export function AgendaView({ data }: { data: AgendaData }) {
         type="button"
         onClick={() => setPreset({ mode: "appointment", day })}
         aria-label="Cargar turno o bloqueo"
-        className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] right-[max(1.25rem,calc(50%-14rem+1.25rem))] flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl shadow-primary/30 transition hover:bg-primary-strong active:scale-95"
+        className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] right-[max(1.25rem,calc(50%-14rem+1.25rem))] flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl shadow-primary/30 transition hover:bg-primary-strong active:scale-95"
       >
         <Plus className="size-7" />
       </button>
