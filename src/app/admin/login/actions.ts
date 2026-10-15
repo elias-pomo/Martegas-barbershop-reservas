@@ -1,9 +1,9 @@
 "use server";
 
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { createSession, deleteSession } from "@/lib/auth";
+import { clientIp } from "@/lib/client-ip";
 import { db } from "@/lib/db";
 import { clearLoginFailures, isLoginLocked, LOGIN_LIMITS, recordLoginFailure } from "@/lib/login-throttle";
 import { verifyPassword } from "@/lib/password";
@@ -14,11 +14,6 @@ const loginSchema = z.object({
 });
 
 export type LoginState = { error: string; email: string } | null;
-
-async function clientIp(): Promise<string | null> {
-  const h = await headers();
-  return h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || null;
-}
 
 export async function login(_prev: LoginState, formData: FormData): Promise<LoginState> {
   const parsed = loginSchema.safeParse({ email: formData.get("email"), password: formData.get("password") });

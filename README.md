@@ -45,10 +45,15 @@ src/proxy.ts            redirige al login si no hay sesión
 
 ## Deploy (Vercel)
 
-1. Crear la base en Neon (o desde el Marketplace de Vercel) y cargar `DATABASE_URL` en el proyecto.
+1. Crear la base en Neon (o desde el Marketplace de Vercel). En Vercel cargar:
+   - `DATABASE_URL`: la conexión **pooled** (host con `-pooler`), la que usa la app.
+   - `DATABASE_POOL_MAX`: `3` (conexiones por instancia; Vercel abre muchas en paralelo).
 2. Cargar `DEFAULT_BUSINESS_SLUG`, `SESSION_SECRET` (32+ caracteres aleatorios), `SEED_ADMIN_EMAIL` y `SEED_ADMIN_PASSWORD`.
-3. Ejecutar `npm run db:deploy` y `npm run db:seed` contra esa base.
-4. Avisos push (opcional): generar claves con `npx web-push generate-vapid-keys` y cargar
+3. Desde tu PC, con `DIRECT_DATABASE_URL` = conexión **directa** de Neon (sin `-pooler`), ejecutar
+   `npm run db:deploy` y `npm run db:seed`. La primera migración también confirma que Neon acepta `btree_gist`.
+4. **Uso comercial:** Vercel Hobby es solo para uso no comercial. Para probar con amigos sirve; con clientes reales,
+   pasar a Vercel Pro u otro hosting.
+5. Avisos push (opcional): generar claves con `npx web-push generate-vapid-keys` y cargar
    `VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` y `VAPID_SUBJECT` (`mailto:tu-email`). Sin ellas la app funciona igual, sin avisos.
 
 ## Avisos al barbero (PWA)

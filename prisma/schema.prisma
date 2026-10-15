@@ -244,10 +244,10 @@ model WaitlistEntry {
   @@index([businessId, day, status])
 }
 
-/// Intentos fallidos de login (por email y por IP) para bloquear fuerza bruta.
-model LoginAttempt {
+/// Registro para límites de uso (login fallido, reservas y lista de espera por conexión).
+model RateLimitHit {
   id        String   @id @default(cuid())
-  /// "email:<email>" o "ip:<ip>"
+  /// "<acción>:<email|ip>", p. ej. "login-email:x@y.com" o "booking-ip:1.2.3.4"
   key       String
   createdAt DateTime @default(now()) @db.Timestamptz(3)
 

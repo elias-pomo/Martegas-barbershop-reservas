@@ -3,7 +3,9 @@
 import { after } from "next/server";
 import { z } from "zod";
 import { createBooking, type BookingResult } from "@/lib/booking";
+import { clientIp } from "@/lib/client-ip";
 import { notifyAppointment } from "@/lib/notifications";
+import { bookingLimited, recordBooking, recordWaitlist, waitlistLimited } from "@/lib/public-limits";
 import { joinWaitlist, type WaitlistResult } from "@/lib/waitlist";
 
 const bookingSchema = z.object({
@@ -26,7 +28,13 @@ export async function joinWaitlistAction(input: z.input<typeof waitlistSchema>):
   const parsed = waitlistSchema.safeParse(input);
   if (!parsed.success) return { ok: false, message: parsed.error.issues[0].message };
   const { slug, ...rest } = parsed.data;
-  return joinWaitlist(slug, rest);
+  const ip = await clientIp();
+  if (await waitlistLimited(slug, ip)) {
+    return { ok: false, message: "Ya te anotaste varias veces. Si necesitás algo más, escribile por WhatsApp." };
+  }
+  const result = await joinWaitlist(slug, rest);
+  if (result.ok) await recordWaitlist(slug, ip);
+  return result;
 }
 
 export async function bookAppointment(input: z.input<typeof bookingSchema>): Promise<BookingResult> {
@@ -37,8 +45,21 @@ export async function bookAppointment(input: z.input<typeof bookingSchema>): Pro
     return { ok: false, error: { code, message: issue.message } };
   }
   const { startsAt, ...rest } = parsed.data;
+  const ip = await clientIp();
+  if (await bookingLimited(rest.slug, ip)) {
+    return {
+      ok: false,
+      error: {
+        code: "RATE_LIMITED",
+        message: "Hiciste varias reservas seguidas desde este dispositivo. Si necesitás otro turno, escribile por WhatsApp.",
+      },
+    };
+  }
   const result = await createBooking({ ...rest, startsAt: new Date(startsAt) });
-  // El aviso al barbero sale después de responderle al cliente: no lo hace esperar.
-  if (result.ok) after(() => notifyAppointment("booked", result.appointment.token));
+  if (result.ok) {
+    await recordBooking(rest.slug, ip);
+    // El aviso al barbero sale después de responderle al cliente: no lo hace esperar.
+    after(() => notifyAppointment("booked", result.appointment.token));
+  }
   return result;
 }

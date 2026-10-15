@@ -557,7 +557,7 @@ function DetailsStep({
       {error && (
         <div role="alert" className="mt-4 rounded-xl border border-danger/40 bg-danger/10 px-4 py-3 text-sm">
           <p>{error.message}</p>
-          {error.code === "BLOCKED" && business.whatsapp && (
+          {(error.code === "BLOCKED" || error.code === "RATE_LIMITED") && business.whatsapp && (
             <a
               href={waLink(business.whatsapp, `Hola! Quería pedir un turno de ${service.name}.`)}
               target="_blank"

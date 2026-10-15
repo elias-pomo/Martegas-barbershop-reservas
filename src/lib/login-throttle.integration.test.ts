@@ -9,7 +9,7 @@ const NOW = new Date();
 
 describe.skipIf(!process.env.DATABASE_URL)("bloqueo de login (integración)", () => {
   afterAll(async () => {
-    await db.loginAttempt.deleteMany({ where: { key: { in: [`email:${email}`, `ip:${ip}`] } } });
+    await db.rateLimitHit.deleteMany({ where: { key: { in: [`login-email:${email}`, `login-ip:${ip}`] } } });
     await db.$disconnect();
   });
 

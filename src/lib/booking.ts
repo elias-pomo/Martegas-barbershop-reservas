@@ -76,11 +76,23 @@ function availabilityInput(
   };
 }
 
+/**
+ * Servicio leído directo de la base, no del caché del negocio: la duración y el precio
+ * que se guardan en el turno tienen que ser los vigentes aunque Martín los acabe de cambiar.
+ */
+async function freshService(businessId: string, serviceId: string) {
+  return db.service.findFirst({
+    where: { id: serviceId, businessId, active: true },
+    select: { id: true, name: true, durationMin: true, price: true },
+  });
+}
+
 /** Disponibilidad combinada de todos los profesionales que hacen el servicio. */
 export async function getServiceAvailability(slug: string, serviceId: string, now = new Date()) {
   const business = await getBusinessBySlug(slug);
-  const service = business?.services.find((s) => s.id === serviceId);
-  if (!business || !service) return null;
+  if (!business) return null;
+  const service = await freshService(business.id, serviceId);
+  if (!service) return null;
 
   const window = bookingWindow(now, business.timezone, business.settings.weekStartsOn);
   const staff = await loadStaffSchedules(business, window, serviceId);
@@ -152,7 +164,7 @@ export async function getWeekOverview(slug: string, now = new Date()) {
 }
 
 export type BookingError = {
-  code: "INVALID_INPUT" | "INVALID_PHONE" | "SLOT_TAKEN" | "WEEKLY_LIMIT" | "BLOCKED" | "NOT_FOUND";
+  code: "INVALID_INPUT" | "INVALID_PHONE" | "SLOT_TAKEN" | "WEEKLY_LIMIT" | "BLOCKED" | "RATE_LIMITED" | "NOT_FOUND";
   message: string;
 };
 
@@ -183,7 +195,7 @@ export async function createBooking(input: {
 }): Promise<BookingResult> {
   const now = input.now ?? new Date();
   const business = await getBusinessBySlug(input.slug);
-  const service = business?.services.find((s) => s.id === input.serviceId);
+  const service = business ? await freshService(business.id, input.serviceId) : null;
   if (!business || !service) {
     return { ok: false, error: { code: "NOT_FOUND", message: "El servicio ya no está disponible." } };
   }
