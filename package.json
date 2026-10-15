@@ -15,7 +15,8 @@
     "db:migrate": "prisma migrate dev",
     "db:deploy": "prisma migrate deploy",
     "db:seed": "prisma db seed",
-    "db:studio": "prisma studio"
+    "db:studio": "prisma studio",
+    "admin:credentials": "tsx scripts/admin-credentials.ts"
   },
   "dependencies": {
     "@date-fns/tz": "^1.5.0",

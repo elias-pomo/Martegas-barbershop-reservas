@@ -8,6 +8,8 @@ export const SESSION_DAYS = 30;
 export interface SessionPayload {
   userId: string;
   businessId: string;
+  /** Debe coincidir con User.sessionVersion; si cambió, la sesión ya no vale. */
+  version: number;
 }
 
 function key() {
@@ -28,8 +30,9 @@ export async function verifySession(token: string | undefined): Promise<SessionP
   if (!token) return null;
   try {
     const { payload } = await jwtVerify(token, key(), { algorithms: ["HS256"] });
-    if (typeof payload.userId !== "string" || typeof payload.businessId !== "string") return null;
-    return { userId: payload.userId, businessId: payload.businessId };
+    const { userId, businessId, version } = payload;
+    if (typeof userId !== "string" || typeof businessId !== "string" || typeof version !== "number") return null;
+    return { userId, businessId, version };
   } catch {
     return null;
   }

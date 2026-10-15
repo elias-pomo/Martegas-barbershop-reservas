@@ -26,7 +26,7 @@ export async function login(_prev: LoginState, formData: FormData): Promise<Logi
     return { error: "Email o contraseña incorrectos.", email };
   }
 
-  await createSession({ userId: user.id, businessId: user.businessId });
+  await createSession({ userId: user.id, businessId: user.businessId, version: user.sessionVersion });
   redirect("/admin");
 }
 

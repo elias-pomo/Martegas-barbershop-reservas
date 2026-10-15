@@ -58,12 +58,14 @@ model Business {
 }
 
 model User {
-  id           String   @id @default(cuid())
-  businessId   String
-  email        String   @unique
-  passwordHash String
-  role         Role     @default(OWNER)
-  createdAt    DateTime @default(now()) @db.Timestamptz(3)
+  id             String   @id @default(cuid())
+  businessId     String
+  email          String   @unique
+  passwordHash   String
+  role           Role     @default(OWNER)
+  /// Se incrementa al cambiar credenciales: invalida las sesiones abiertas.
+  sessionVersion Int      @default(0)
+  createdAt      DateTime @default(now()) @db.Timestamptz(3)
 
   business          Business           @relation(fields: [businessId], references: [id], onDelete: Cascade)
   pushSubscriptions PushSubscription[]

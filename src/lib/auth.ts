@@ -26,13 +26,16 @@ export async function deleteSession() {
  */
 export async function requireAdmin() {
   const session = await verifySession((await cookies()).get(SESSION_COOKIE)?.value);
-  if (!session) redirect("/admin/login");
+  if (!session) redirect("/admin/salir");
 
   const user = await db.user.findUnique({
     where: { id: session.userId },
     include: { business: true },
   });
-  if (!user || user.businessId !== session.businessId) redirect("/admin/login");
+  // Sesión firmada pero vencida para el usuario (credenciales cambiadas, usuario borrado): se limpia la cookie.
+  if (!user || user.businessId !== session.businessId || user.sessionVersion !== session.version) {
+    redirect("/admin/salir");
+  }
 
   const { business } = user;
   return {

@@ -28,6 +28,7 @@ npm run dev
 | `npm run typecheck` | Chequeo de tipos |
 | `npm run lint` | ESLint |
 | `npm run db:studio` | Explorador visual de la base |
+| `npm run admin:credentials` | Cambia email y/o contraseña del dueño del panel (ver abajo) |
 
 ## Estructura
 
@@ -45,3 +46,16 @@ src/proxy.ts            redirige al login si no hay sesión
 1. Crear la base en Neon (o desde el Marketplace de Vercel) y cargar `DATABASE_URL` en el proyecto.
 2. Cargar `DEFAULT_BUSINESS_SLUG`, `SESSION_SECRET` (32+ caracteres aleatorios), `SEED_ADMIN_EMAIL` y `SEED_ADMIN_PASSWORD`.
 3. Ejecutar `npm run db:deploy` y `npm run db:seed` contra esa base.
+
+## Cambiar email o contraseña del panel
+
+```bash
+npm run admin:credentials -- --email nuevo@mail.com      # solo email
+npm run admin:credentials -- --password                  # pide la contraseña oculta
+npm run admin:credentials -- --slug martegas --email x@y.com --password
+```
+
+- La contraseña se pide por teclado (no queda en el historial). Mínimo 10 caracteres, con letras y números.
+- **En producción:** correrlo desde tu PC con `DATABASE_URL` apuntando a la base de producción, por ejemplo
+  `DATABASE_URL="postgresql://…" npm run admin:credentials -- --password`. Antes de cambiar nada muestra a qué base se conecta.
+- Al terminar se cierran todas las sesiones abiertas del panel.
