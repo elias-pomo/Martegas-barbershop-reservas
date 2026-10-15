@@ -122,11 +122,12 @@ describe.skipIf(!process.env.DATABASE_URL)("clientes y ajustes (integración)", 
     expect(
       await saveServices(business, [
         { ...services[0], active: false },
-        { name: "Barba", durationMin: 30, price: 5000, active: true },
+        { name: "Barba", description: "  Perfilado con navaja  ", durationMin: 30, price: 5000, active: true },
       ]),
     ).toEqual({ ok: true });
     const after = await getSettingsData(business);
     expect(after.services.filter((s) => s.active).map((s) => s.name)).toEqual(["Barba"]);
+    expect(after.services.find((s) => s.name === "Barba")?.description).toBe("Perfilado con navaja");
     // El servicio nuevo lo hace el barbero: tiene disponibilidad.
     const barba = after.services.find((s) => s.name === "Barba")!;
     const availability = await getServiceAvailability(slug, barba.id, NOW);

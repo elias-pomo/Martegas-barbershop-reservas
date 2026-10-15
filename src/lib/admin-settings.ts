@@ -23,7 +23,14 @@ export async function getSettingsData(business: Business) {
     }),
   ]);
   return {
-    services: services.map((s) => ({ id: s.id, name: s.name, durationMin: s.durationMin, price: s.price, active: s.active })),
+    services: services.map((s) => ({
+      id: s.id,
+      name: s.name,
+      description: s.description ?? "",
+      durationMin: s.durationMin,
+      price: s.price,
+      active: s.active,
+    })),
     hours: Array.from({ length: 7 }, (_, weekday) => {
       const block = staff?.workingHours.find((h) => h.weekday === weekday);
       return { weekday, open: !!block, firstStart: block?.firstStart ?? "15:00", lastStart: block?.lastStart ?? "22:00" };
@@ -58,7 +65,7 @@ export async function updateBusinessInfo(
 
 export async function saveServices(
   business: Business,
-  services: { id?: string; name: string; durationMin: number; price: number; active: boolean }[],
+  services: { id?: string; name: string; description: string; durationMin: number; price: number; active: boolean }[],
 ): Promise<SettingsResult> {
   if (!services.some((s) => s.active)) return { ok: false, message: "Tiene que quedar al menos un servicio activo." };
 
@@ -71,7 +78,14 @@ export async function saveServices(
 
   await db.$transaction(async (tx) => {
     for (const [sortOrder, s] of services.entries()) {
-      const data = { name: s.name.trim(), durationMin: s.durationMin, price: s.price, active: s.active, sortOrder };
+      const data = {
+        name: s.name.trim(),
+        description: s.description.trim() || null,
+        durationMin: s.durationMin,
+        price: s.price,
+        active: s.active,
+        sortOrder,
+      };
       if (s.id) {
         await tx.service.update({ where: { id: s.id }, data });
       } else {

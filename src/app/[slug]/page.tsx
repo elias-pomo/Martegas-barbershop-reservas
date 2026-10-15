@@ -1,4 +1,4 @@
-import { CalendarCheck, CalendarClock, Camera, MapPin, MessageCircle, Sparkles } from "lucide-react";
+import { CalendarCheck, CalendarClock, Camera, ChevronRight, Clock, MapPin, MessageCircle, Sparkles } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -92,17 +92,11 @@ async function BusinessHome({ params }: { params: PageProps<"/[slug]">["params"]
 
       <section className="mt-10">
         <h2 className="font-display text-3xl tracking-wide">Servicios</h2>
-        <ul className="mt-3 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">
-          {business.services.map((service) => (
-            <li key={service.id} className="flex items-center gap-3 px-4 py-4">
-              <ServiceIcon name={service.name} className="size-9 shrink-0 text-[var(--neon-purple)] opacity-90" />
-              <div className="flex-1">
-                <p className="font-medium">{service.name}</p>
-                <p className="text-sm text-muted">{formatDuration(service.durationMin)}</p>
-              </div>
-              <p className="text-lg font-semibold text-accent [text-shadow:0_0_10px_rgb(34_197_94_/_0.45)]">
-                {formatPrice(service.price)}
-              </p>
+        <ul className="mt-3 grid grid-cols-2 gap-3">
+          {business.services.map((service, i, all) => (
+            // Con cantidad impar, la última tarjeta ocupa las dos columnas.
+            <li key={service.id} className={all.length % 2 === 1 && i === all.length - 1 ? "col-span-2" : ""}>
+              <ServiceCard slug={slug} service={service} />
             </li>
           ))}
         </ul>
@@ -143,6 +137,45 @@ async function WeekSection({ slug }: { slug: string }) {
         slots: d.slots.map((s) => ({ start: s.start.toISOString(), state: s.state })),
       }))}
     />
+  );
+}
+
+/** Tarjeta de servicio: tocarla abre la reserva con ese servicio ya elegido. */
+function ServiceCard({
+  slug,
+  service,
+}: {
+  slug: string;
+  service: { id: string; name: string; description: string | null; durationMin: number; price: number };
+}) {
+  return (
+    <Link
+      href={`/${slug}/reservar?servicio=${service.id}`}
+      className="btn-glass group relative flex h-full flex-col overflow-hidden rounded-2xl p-4"
+    >
+      {/* Filo de luz arriba: el único adorno de la tarjeta. */}
+      <span
+        className="absolute inset-x-5 top-0 h-px bg-gradient-to-r from-transparent via-[var(--neon-purple)] to-transparent opacity-70 transition group-hover:opacity-100"
+        aria-hidden
+      />
+      <div className="flex items-start justify-between gap-2">
+        <span className="flex size-11 items-center justify-center rounded-xl bg-primary/15 text-[var(--neon-purple)] transition group-hover:shadow-[0_0_14px_rgb(139_92_246_/_0.45)]">
+          <ServiceIcon name={service.name} className="size-7" />
+        </span>
+        <span className="flex items-center gap-1 rounded-full bg-surface-2 px-2 py-0.5 text-xs text-muted">
+          <Clock className="size-3" aria-hidden />
+          {formatDuration(service.durationMin)}
+        </span>
+      </div>
+      <h3 className="mt-3 text-lg font-semibold leading-tight">{service.name}</h3>
+      {service.description && <p className="mt-1 line-clamp-4 text-sm leading-snug text-muted">{service.description}</p>}
+      <div className="mt-auto flex items-end justify-between pt-4">
+        <span className="text-xl font-semibold text-accent [text-shadow:0_0_10px_rgb(34_197_94_/_0.45)]">
+          {formatPrice(service.price)}
+        </span>
+        <ChevronRight className="size-5 text-muted transition group-hover:translate-x-0.5 group-hover:text-[var(--neon-purple)]" aria-hidden />
+      </div>
+    </Link>
   );
 }
 

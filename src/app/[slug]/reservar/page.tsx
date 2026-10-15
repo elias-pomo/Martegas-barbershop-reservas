@@ -27,6 +27,9 @@ async function Flow({
   // ?hora=<ISO> viene de tocar un horario libre en la semana del inicio.
   const hora = typeof query.hora === "string" ? query.hora : null;
   const preferredStart = hora && !Number.isNaN(Date.parse(hora)) ? hora : null;
+  // ?servicio=<id> viene de tocar una tarjeta de servicio en el inicio: se saltea el primer paso.
+  const initialServiceId =
+    typeof query.servicio === "string" && business.services.some((s) => s.id === query.servicio) ? query.servicio : null;
 
   const props: BookingBusiness = {
     slug: business.slug,
@@ -40,11 +43,12 @@ async function Flow({
     services: business.services.map((s) => ({
       id: s.id,
       name: s.name,
+      description: s.description,
       durationMin: s.durationMin,
       price: s.price,
     })),
   };
-  return <BookingFlow business={props} preferredStart={preferredStart} />;
+  return <BookingFlow business={props} preferredStart={preferredStart} initialServiceId={initialServiceId} />;
 }
 
 function FlowSkeleton() {

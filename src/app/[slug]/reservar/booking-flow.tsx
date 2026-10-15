@@ -43,7 +43,7 @@ export interface BookingBusiness {
   paymentAlias: string | null;
   paymentHolder: string | null;
   staffLabel: string;
-  services: { id: string; name: string; durationMin: number; price: number }[];
+  services: { id: string; name: string; description: string | null; durationMin: number; price: number }[];
 }
 
 type Service = BookingBusiness["services"][number];
@@ -53,15 +53,19 @@ const STEPS: Step[] = ["service", "slot", "details"];
 export function BookingFlow({
   business,
   preferredStart = null,
+  initialServiceId = null,
 }: {
   business: BookingBusiness;
   /** Horario tocado en la semana del inicio: se intenta usar después de elegir el servicio. */
   preferredStart?: string | null;
+  /** Servicio tocado en el inicio: la reserva arranca directo en día y hora. */
+  initialServiceId?: string | null;
 }) {
-  const [step, setStep] = useState<Step>("service");
+  const initialService = business.services.find((s) => s.id === initialServiceId) ?? null;
+  const [step, setStep] = useState<Step>(initialService ? "slot" : "service");
   const [preferred, setPreferred] = useState(preferredStart);
   const [direction, setDirection] = useState(1);
-  const [service, setService] = useState<Service | null>(null);
+  const [service, setService] = useState<Service | null>(initialService);
   const [slot, setSlot] = useState<string | null>(null);
   const [notice, setNotice] = useState<string | null>(null);
   const [booked, setBooked] = useState<SavedAppointment | null>(null);
@@ -223,9 +227,12 @@ function ServiceStep({
               <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-[var(--neon-purple)] transition group-hover:shadow-[0_0_14px_rgb(139_92_246_/_0.45)]">
                 <ServiceIcon name={service.name} className="size-8" />
               </span>
-              <span className="flex-1">
+              <span className="min-w-0 flex-1">
                 <span className="block text-lg font-medium">{service.name}</span>
-                <span className="mt-0.5 flex items-center gap-1 text-sm text-muted">
+                {service.description && (
+                  <span className="mt-0.5 block text-sm leading-snug text-muted">{service.description}</span>
+                )}
+                <span className="mt-1 flex items-center gap-1 text-sm text-muted">
                   <Clock className="size-3.5" aria-hidden />
                   {formatDuration(service.durationMin)}
                 </span>

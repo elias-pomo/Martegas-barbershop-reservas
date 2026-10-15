@@ -102,6 +102,8 @@ model Service {
   id          String  @id @default(cuid())
   businessId  String
   name        String
+  /// Texto breve para clientes (qué incluye). Opcional.
+  description String?
   durationMin Int
   price       Int
   active      Boolean @default(true)

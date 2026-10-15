@@ -43,6 +43,7 @@ const servicesSchema = z
     z.object({
       id: z.string().optional(),
       name: z.string().trim().min(2, "Cada servicio necesita un nombre").max(60),
+      description: z.string().trim().max(140, "La descripción puede tener hasta 140 caracteres").default(""),
       durationMin: z.number().int().min(15).max(480),
       price: z.number().int().min(0, "Precio inválido").max(10_000_000),
       active: z.boolean(),

@@ -37,7 +37,7 @@ interface Props {
   vapidKey: string | null;
   slug: string;
   info: { name: string; address: string; whatsapp: string; instagram: string; paymentAlias: string; paymentHolder: string };
-  services: { id: string; name: string; durationMin: number; price: number; active: boolean }[];
+  services: { id: string; name: string; description: string; durationMin: number; price: number; active: boolean }[];
   hours: { weekday: number; open: boolean; firstStart: string; lastStart: string }[];
   policies: {
     slotIntervalMin: number;
@@ -234,7 +234,9 @@ function ServicesForm({ services }: { services: Props["services"] }) {
       onSubmit={(e) => {
         e.preventDefault();
         save(() =>
-          saveServicesAction(rows.map((r) => ({ id: r.id, name: r.name, durationMin: r.durationMin, price: r.price, active: r.active }))),
+          saveServicesAction(
+            rows.map((r) => ({ id: r.id, name: r.name, description: r.description, durationMin: r.durationMin, price: r.price, active: r.active })),
+          ),
         );
       }}
     >
@@ -260,6 +262,15 @@ function ServicesForm({ services }: { services: Props["services"] }) {
                 Activo
               </label>
             </div>
+            <textarea
+              value={r.description}
+              onChange={(e) => update(r.key, { description: e.target.value })}
+              maxLength={140}
+              rows={2}
+              aria-label="Descripción para clientes"
+              placeholder="Qué incluye (lo ven los clientes)"
+              className="mt-2 w-full resize-none rounded-lg border border-border bg-surface px-2 py-1.5 text-base outline-none focus:border-primary"
+            />
             <div className="mt-2 grid grid-cols-2 gap-2">
               <select
                 value={r.durationMin}
@@ -294,7 +305,7 @@ function ServicesForm({ services }: { services: Props["services"] }) {
       <button
         type="button"
         onClick={() =>
-          setRows((rs) => [...rs, { key: crypto.randomUUID(), name: "", durationMin: 60, price: 0, active: true }])
+          setRows((rs) => [...rs, { key: crypto.randomUUID(), name: "", description: "", durationMin: 60, price: 0, active: true }])
         }
         className="mt-2 flex h-11 w-full items-center justify-center gap-1.5 rounded-xl border border-dashed border-border text-sm font-medium text-muted hover:text-foreground"
       >

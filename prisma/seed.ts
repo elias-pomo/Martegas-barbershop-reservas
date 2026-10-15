@@ -44,8 +44,20 @@ async function main() {
       },
       services: {
         create: [
-          { name: "Corte", durationMin: 60, price: 12000, sortOrder: 0 },
-          { name: "Corte + barba", durationMin: 90, price: 15000, sortOrder: 1 },
+          {
+            name: "Corte",
+            description: "Corte a tu medida, a tijera o máquina, con terminación y peinado.",
+            durationMin: 60,
+            price: 12000,
+            sortOrder: 0,
+          },
+          {
+            name: "Corte + barba",
+            description: "Corte completo más perfilado y arreglo de barba con navaja.",
+            durationMin: 90,
+            price: 15000,
+            sortOrder: 1,
+          },
         ],
       },
     },
