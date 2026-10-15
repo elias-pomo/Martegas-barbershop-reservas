@@ -14,8 +14,8 @@ export function GET() {
     scope: "/",
     display: "standalone",
     orientation: "portrait",
-    background_color: "#0a0a0b",
-    theme_color: "#0a0a0b",
+    background_color: "#0b0b0b",
+    theme_color: "#0b0b0b",
     lang: "es-AR",
     icons: iconSet("A"),
   });

@@ -31,7 +31,7 @@ export function GET(request: Request) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "#0a0a0b",
+        background: "#0b0b0b",
         borderRadius: maskable ? 0 : size * 0.22,
       }}
     >

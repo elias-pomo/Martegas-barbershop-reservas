@@ -5,7 +5,9 @@
  * sobreescribiendo estas variables, así otro negocio cambia colores sin tocar código.
  */
 :root {
-  --background: #0a0a0b;
+  /* Mismo tono que la base de la imagen de fondo: no se nota mientras carga. */
+  --background: #0b0b0b;
+  --background-pattern: url("/fondo-barberia.svg");
   --surface: #141417;
   --surface-2: #1c1c21;
   --border: #2a2a31;
@@ -50,7 +52,20 @@ body {
   overflow-x: clip;
 }
 
+/*
+ * Fondo con íconos de barbería (imagen que se repite sin cortes). El tamaño del mosaico
+ * deja los íconos chicos y sutiles en el celular, un poco más grandes en pantallas anchas.
+ */
 body {
-  background: var(--background);
+  background-color: var(--background);
+  background-image: var(--background-pattern);
+  background-repeat: repeat;
+  background-size: 560px;
   color: var(--foreground);
+}
+
+@media (min-width: 768px) {
+  body {
+    background-size: 760px;
+  }
 }

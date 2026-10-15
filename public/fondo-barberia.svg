@@ -1,0 +1,665 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="800" viewBox="0 0 800 800">
+<defs>
+<g id="tijera">
+  <path d="M36 66 L64 6 Q62 30 46 60 Z"/>
+  <path d="M64 66 L36 6 Q38 30 54 60 Z"/>
+  <circle cx="50" cy="44" r="3"/>
+  <circle cx="30" cy="78" r="12"/><circle cx="30" cy="78" r="6"/>
+  <circle cx="70" cy="78" r="12"/><circle cx="70" cy="78" r="6"/>
+  <path d="M20 86 Q12 92 16 98"/>
+</g>
+<g id="maquina">
+  <path d="M32 30 Q32 10 50 10 Q68 10 68 30 L66 72 H34 Z"/>
+  <rect x="30" y="72" width="40" height="8" rx="2"/>
+  <path d="M34 80v8M39 80v8M44 80v8M49 80v8M54 80v8M59 80v8M64 80v8"/>
+  <rect x="45" y="24" width="10" height="20" rx="5"/>
+  <circle cx="50" cy="31" r="2"/>
+  <path d="M39 54h22M39 60h22"/>
+  <path d="M50 10 Q52 2 64 4"/>
+</g>
+<g id="poste">
+  <circle cx="50" cy="9" r="5"/>
+  <rect x="36" y="15" width="28" height="8" rx="3"/>
+  <rect x="40" y="23" width="20" height="54"/>
+  <path d="M40 35L60 27M40 47L60 39M40 59L60 51M40 71L60 63"/>
+  <rect x="36" y="77" width="28" height="8" rx="3"/>
+  <path d="M42 85 L40 94 H60 L58 85"/>
+</g>
+<g id="navaja">
+  <path d="M8 60 Q8 52 16 52 H56 Q60 52 60 56 V60 Q60 64 56 64 H16 Q8 64 8 60 Z"/>
+  <circle cx="16" cy="58" r="2"/><circle cx="52" cy="58" r="2"/>
+  <path d="M58 54 L64 40 H90 Q96 40 96 46 V48 Q96 52 92 52 H64"/>
+  <path d="M66 47 H90"/>
+  <path d="M64 40 Q60 34 54 36"/>
+</g>
+<g id="peine">
+  <rect x="8" y="30" width="84" height="14" rx="4"/>
+  <path d="M14 44v26M21 44v26M28 44v26M35 44v26M42 44v26M49 44v26"/>
+  <path d="M55 44v20M59 44v20M63 44v20M67 44v20M71 44v20M75 44v20M79 44v20M83 44v20M87 44v20"/>
+</g>
+<g id="brocha">
+  <path d="M28 40 Q26 12 50 8 Q74 12 72 40 Z"/>
+  <path d="M40 38 Q40 22 46 14M50 38V12M60 38 Q60 22 54 14"/>
+  <rect x="30" y="40" width="40" height="8" rx="2"/>
+  <path d="M34 48 Q30 70 36 88 H64 Q70 70 66 48"/>
+  <path d="M35 66H65"/>
+  <rect x="32" y="88" width="36" height="6" rx="2"/>
+</g>
+<g id="espejo">
+  <circle cx="50" cy="36" r="26"/>
+  <circle cx="50" cy="36" r="20"/>
+  <path d="M38 28 Q42 21 50 19M37 36 L41 31"/>
+  <path d="M46 62 H54 L56 68 H44 Z"/>
+  <rect x="44" y="68" width="12" height="26" rx="6"/>
+</g>
+<g id="spray">
+  <path d="M30 48 Q30 40 38 40 H62 Q70 40 70 48 V88 Q70 94 64 94 H36 Q30 94 30 88 Z"/>
+  <rect x="42" y="32" width="16" height="8"/>
+  <path d="M40 32 V22 H66 L72 25 V28 L58 30"/>
+  <path d="M58 30 Q66 36 60 42"/>
+  <rect x="37" y="58" width="26" height="20" rx="3"/>
+  <circle cx="80" cy="22" r="1.5"/><circle cx="86" cy="17" r="1.5"/>
+  <circle cx="87" cy="27" r="1.5"/><circle cx="93" cy="22" r="1.5"/>
+</g>
+<g id="secador">
+  <rect x="18" y="18" width="60" height="28" rx="14"/>
+  <path d="M78 22 L92 24 V40 L78 42"/>
+  <circle cx="32" cy="32" r="8"/><circle cx="32" cy="32" r="3"/>
+  <path d="M44 46 L40 86 Q40 92 46 92 H54 Q58 92 58 86 L60 46"/>
+  <circle cx="50" cy="62" r="2.5"/><circle cx="49" cy="72" r="2.5"/>
+  <path d="M50 92 Q48 98 56 98"/>
+</g>
+<g id="bigote">
+  <path d="M50 40 C44 32 32 34 26 42 C20 50 12 50 8 44 C10 56 24 62 36 56
+           C42 53 46 50 50 50 C54 50 58 53 64 56 C76 62 90 56 92 44
+           C88 50 80 50 74 42 C68 34 56 32 50 40 Z"/>
+  <path d="M50 42 V48"/>
+</g>
+<g id="pomada">
+  <rect x="24" y="28" width="52" height="16" rx="3"/>
+  <path d="M32 28v16M40 28v16M48 28v16M56 28v16M64 28v16M72 28v16"/>
+  <path d="M28 44 V80 Q28 88 36 88 H64 Q72 88 72 80 V44"/>
+  <rect x="35" y="56" width="30" height="20" rx="3"/>
+  <path d="M42 66 Q46 62 50 66 Q54 62 58 66"/>
+</g>
+</defs>
+<rect width="800" height="800" fill="#0b0b0b"/>
+<g fill="none" stroke="#1f1f1f" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round">
+<use href="#tijera" transform="translate(-752.1 -754.2) rotate(10.6) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-752.1 45.8) rotate(10.6) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-752.1 845.8) rotate(10.6) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(47.9 -754.2) rotate(10.6) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(47.9 45.8) rotate(10.6) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(47.9 845.8) rotate(10.6) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(847.9 -754.2) rotate(10.6) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(847.9 45.8) rotate(10.6) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(847.9 845.8) rotate(10.6) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-655.1 -749.6) rotate(-9.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-655.1 50.4) rotate(-9.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-655.1 850.4) rotate(-9.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(144.9 -749.6) rotate(-9.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(144.9 50.4) rotate(-9.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(144.9 850.4) rotate(-9.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(944.9 -749.6) rotate(-9.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(944.9 50.4) rotate(-9.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(944.9 850.4) rotate(-9.4) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-555.3 -749.9) rotate(-32.4) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-555.3 50.1) rotate(-32.4) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-555.3 850.1) rotate(-32.4) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(244.7 -749.9) rotate(-32.4) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(244.7 50.1) rotate(-32.4) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(244.7 850.1) rotate(-32.4) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1044.7 -749.9) rotate(-32.4) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1044.7 50.1) rotate(-32.4) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1044.7 850.1) rotate(-32.4) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-450.8 -755.2) rotate(-28.7) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-450.8 44.8) rotate(-28.7) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-450.8 844.8) rotate(-28.7) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(349.2 -755.2) rotate(-28.7) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(349.2 44.8) rotate(-28.7) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(349.2 844.8) rotate(-28.7) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1149.2 -755.2) rotate(-28.7) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1149.2 44.8) rotate(-28.7) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1149.2 844.8) rotate(-28.7) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-350.9 -746.1) rotate(-26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-350.9 53.9) rotate(-26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-350.9 853.9) rotate(-26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(449.1 -746.1) rotate(-26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(449.1 53.9) rotate(-26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(449.1 853.9) rotate(-26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1249.1 -746.1) rotate(-26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1249.1 53.9) rotate(-26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1249.1 853.9) rotate(-26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-253.3 -748.5) rotate(31.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-253.3 51.5) rotate(31.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-253.3 851.5) rotate(31.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(546.7 -748.5) rotate(31.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(546.7 51.5) rotate(31.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(546.7 851.5) rotate(31.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1346.7 -748.5) rotate(31.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1346.7 51.5) rotate(31.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1346.7 851.5) rotate(31.3) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-149.1 -751.2) rotate(33.3) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-149.1 48.8) rotate(33.3) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-149.1 848.8) rotate(33.3) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(650.9 -751.2) rotate(33.3) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(650.9 48.8) rotate(33.3) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(650.9 848.8) rotate(33.3) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(1450.9 -751.2) rotate(33.3) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(1450.9 48.8) rotate(33.3) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(1450.9 848.8) rotate(33.3) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-55.4 -745.7) rotate(-14.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-55.4 54.3) rotate(-14.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-55.4 854.3) rotate(-14.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(744.6 -745.7) rotate(-14.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(744.6 54.3) rotate(-14.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(744.6 854.3) rotate(-14.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(1544.6 -745.7) rotate(-14.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(1544.6 54.3) rotate(-14.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(1544.6 854.3) rotate(-14.7) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-704.3 -654.6) rotate(-13.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-704.3 145.4) rotate(-13.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-704.3 945.4) rotate(-13.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(95.7 -654.6) rotate(-13.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(95.7 145.4) rotate(-13.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(95.7 945.4) rotate(-13.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(895.7 -654.6) rotate(-13.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(895.7 145.4) rotate(-13.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(895.7 945.4) rotate(-13.4) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-596.2 -653.8) rotate(5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-596.2 146.2) rotate(5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-596.2 946.2) rotate(5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(203.8 -653.8) rotate(5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(203.8 146.2) rotate(5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(203.8 946.2) rotate(5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1003.8 -653.8) rotate(5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1003.8 146.2) rotate(5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1003.8 946.2) rotate(5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-498.3 -651.5) rotate(3.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-498.3 148.5) rotate(3.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-498.3 948.5) rotate(3.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(301.7 -651.5) rotate(3.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(301.7 148.5) rotate(3.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(301.7 948.5) rotate(3.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(1101.7 -651.5) rotate(3.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(1101.7 148.5) rotate(3.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(1101.7 948.5) rotate(3.3) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-405.2 -655.3) rotate(-20.6) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-405.2 144.7) rotate(-20.6) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-405.2 944.7) rotate(-20.6) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(394.8 -655.3) rotate(-20.6) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(394.8 144.7) rotate(-20.6) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(394.8 944.7) rotate(-20.6) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1194.8 -655.3) rotate(-20.6) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1194.8 144.7) rotate(-20.6) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1194.8 944.7) rotate(-20.6) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-297.8 -650.9) rotate(-13.0) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-297.8 149.1) rotate(-13.0) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-297.8 949.1) rotate(-13.0) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(502.2 -650.9) rotate(-13.0) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(502.2 149.1) rotate(-13.0) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(502.2 949.1) rotate(-13.0) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1302.2 -650.9) rotate(-13.0) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1302.2 149.1) rotate(-13.0) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1302.2 949.1) rotate(-13.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-199.0 -650.6) rotate(-14.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-199.0 149.4) rotate(-14.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-199.0 949.4) rotate(-14.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(601.0 -650.6) rotate(-14.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(601.0 149.4) rotate(-14.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(601.0 949.4) rotate(-14.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1401.0 -650.6) rotate(-14.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1401.0 149.4) rotate(-14.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1401.0 949.4) rotate(-14.0) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-96.5 -647.6) rotate(-17.9) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-96.5 152.4) rotate(-17.9) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-96.5 952.4) rotate(-17.9) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(703.5 -647.6) rotate(-17.9) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(703.5 152.4) rotate(-17.9) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(703.5 952.4) rotate(-17.9) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1503.5 -647.6) rotate(-17.9) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1503.5 152.4) rotate(-17.9) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1503.5 952.4) rotate(-17.9) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(0.9 -649.7) rotate(26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(0.9 150.3) rotate(26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(0.9 950.3) rotate(26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(800.9 -649.7) rotate(26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(800.9 150.3) rotate(26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(800.9 950.3) rotate(26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1600.9 -649.7) rotate(26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1600.9 150.3) rotate(26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1600.9 950.3) rotate(26.3) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-747.2 -552.5) rotate(33.6) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-747.2 247.5) rotate(33.6) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-747.2 1047.5) rotate(33.6) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(52.8 -552.5) rotate(33.6) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(52.8 247.5) rotate(33.6) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(52.8 1047.5) rotate(33.6) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(852.8 -552.5) rotate(33.6) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(852.8 247.5) rotate(33.6) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(852.8 1047.5) rotate(33.6) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-654.6 -551.0) rotate(18.0) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-654.6 249.0) rotate(18.0) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-654.6 1049.0) rotate(18.0) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(145.4 -551.0) rotate(18.0) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(145.4 249.0) rotate(18.0) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(145.4 1049.0) rotate(18.0) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(945.4 -551.0) rotate(18.0) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(945.4 249.0) rotate(18.0) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(945.4 1049.0) rotate(18.0) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-554.2 -550.1) rotate(-32.3) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-554.2 249.9) rotate(-32.3) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-554.2 1049.9) rotate(-32.3) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(245.8 -550.1) rotate(-32.3) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(245.8 249.9) rotate(-32.3) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(245.8 1049.9) rotate(-32.3) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(1045.8 -550.1) rotate(-32.3) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(1045.8 249.9) rotate(-32.3) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(1045.8 1049.9) rotate(-32.3) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-448.0 -546.8) rotate(5.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-448.0 253.2) rotate(5.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-448.0 1053.2) rotate(5.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(352.0 -546.8) rotate(5.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(352.0 253.2) rotate(5.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(352.0 1053.2) rotate(5.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1152.0 -546.8) rotate(5.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1152.0 253.2) rotate(5.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1152.0 1053.2) rotate(5.1) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-345.5 -552.2) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-345.5 247.8) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-345.5 1047.8) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(454.5 -552.2) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(454.5 247.8) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(454.5 1047.8) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(1254.5 -552.2) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(1254.5 247.8) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(1254.5 1047.8) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-248.9 -549.0) rotate(-3.1) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-248.9 251.0) rotate(-3.1) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-248.9 1051.0) rotate(-3.1) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(551.1 -549.0) rotate(-3.1) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(551.1 251.0) rotate(-3.1) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(551.1 1051.0) rotate(-3.1) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1351.1 -549.0) rotate(-3.1) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1351.1 251.0) rotate(-3.1) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1351.1 1051.0) rotate(-3.1) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-145.9 -544.7) rotate(-1.8) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-145.9 255.3) rotate(-1.8) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-145.9 1055.3) rotate(-1.8) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(654.1 -544.7) rotate(-1.8) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(654.1 255.3) rotate(-1.8) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(654.1 1055.3) rotate(-1.8) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1454.1 -544.7) rotate(-1.8) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1454.1 255.3) rotate(-1.8) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1454.1 1055.3) rotate(-1.8) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-48.0 -555.3) rotate(14.1) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-48.0 244.7) rotate(14.1) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-48.0 1044.7) rotate(14.1) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(752.0 -555.3) rotate(14.1) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(752.0 244.7) rotate(14.1) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(752.0 1044.7) rotate(14.1) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1552.0 -555.3) rotate(14.1) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1552.0 244.7) rotate(14.1) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1552.0 1044.7) rotate(14.1) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-698.2 -444.1) rotate(22.5) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-698.2 355.9) rotate(22.5) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-698.2 1155.9) rotate(22.5) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(101.8 -444.1) rotate(22.5) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(101.8 355.9) rotate(22.5) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(101.8 1155.9) rotate(22.5) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(901.8 -444.1) rotate(22.5) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(901.8 355.9) rotate(22.5) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(901.8 1155.9) rotate(22.5) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-602.6 -451.4) rotate(11.8) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-602.6 348.6) rotate(11.8) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-602.6 1148.6) rotate(11.8) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(197.4 -451.4) rotate(11.8) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(197.4 348.6) rotate(11.8) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(197.4 1148.6) rotate(11.8) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(997.4 -451.4) rotate(11.8) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(997.4 348.6) rotate(11.8) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(997.4 1148.6) rotate(11.8) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-505.7 -450.5) rotate(-23.2) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-505.7 349.5) rotate(-23.2) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-505.7 1149.5) rotate(-23.2) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(294.3 -450.5) rotate(-23.2) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(294.3 349.5) rotate(-23.2) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(294.3 1149.5) rotate(-23.2) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(1094.3 -450.5) rotate(-23.2) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(1094.3 349.5) rotate(-23.2) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(1094.3 1149.5) rotate(-23.2) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-404.6 -455.3) rotate(18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-404.6 344.7) rotate(18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-404.6 1144.7) rotate(18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(395.4 -455.3) rotate(18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(395.4 344.7) rotate(18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(395.4 1144.7) rotate(18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(1195.4 -455.3) rotate(18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(1195.4 344.7) rotate(18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(1195.4 1144.7) rotate(18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-304.4 -453.0) rotate(-7.6) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-304.4 347.0) rotate(-7.6) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-304.4 1147.0) rotate(-7.6) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(495.6 -453.0) rotate(-7.6) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(495.6 347.0) rotate(-7.6) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(495.6 1147.0) rotate(-7.6) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(1295.6 -453.0) rotate(-7.6) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(1295.6 347.0) rotate(-7.6) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(1295.6 1147.0) rotate(-7.6) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-195.5 -455.0) rotate(-3.6) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-195.5 345.0) rotate(-3.6) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-195.5 1145.0) rotate(-3.6) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(604.5 -455.0) rotate(-3.6) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(604.5 345.0) rotate(-3.6) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(604.5 1145.0) rotate(-3.6) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1404.5 -455.0) rotate(-3.6) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1404.5 345.0) rotate(-3.6) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1404.5 1145.0) rotate(-3.6) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-99.4 -445.4) rotate(22.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-99.4 354.6) rotate(22.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-99.4 1154.6) rotate(22.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(700.6 -445.4) rotate(22.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(700.6 354.6) rotate(22.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(700.6 1154.6) rotate(22.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(1500.6 -445.4) rotate(22.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(1500.6 354.6) rotate(22.3) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(1500.6 1154.6) rotate(22.3) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(4.4 -452.7) rotate(-5.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(4.4 347.3) rotate(-5.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(4.4 1147.3) rotate(-5.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(804.4 -452.7) rotate(-5.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(804.4 347.3) rotate(-5.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(804.4 1147.3) rotate(-5.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1604.4 -452.7) rotate(-5.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1604.4 347.3) rotate(-5.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1604.4 1147.3) rotate(-5.9) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-751.7 -345.4) rotate(32.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-751.7 454.6) rotate(32.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-751.7 1254.6) rotate(32.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(48.3 -345.4) rotate(32.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(48.3 454.6) rotate(32.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(48.3 1254.6) rotate(32.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(848.3 -345.4) rotate(32.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(848.3 454.6) rotate(32.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(848.3 1254.6) rotate(32.0) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-654.2 -353.9) rotate(-18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-654.2 446.1) rotate(-18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-654.2 1246.1) rotate(-18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(145.8 -353.9) rotate(-18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(145.8 446.1) rotate(-18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(145.8 1246.1) rotate(-18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(945.8 -353.9) rotate(-18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(945.8 446.1) rotate(-18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(945.8 1246.1) rotate(-18.8) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-553.2 -350.2) rotate(6.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-553.2 449.8) rotate(6.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-553.2 1249.8) rotate(6.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(246.8 -350.2) rotate(6.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(246.8 449.8) rotate(6.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(246.8 1249.8) rotate(6.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1046.8 -350.2) rotate(6.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1046.8 449.8) rotate(6.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1046.8 1249.8) rotate(6.2) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-452.8 -356.0) rotate(-5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-452.8 444.0) rotate(-5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-452.8 1244.0) rotate(-5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(347.2 -356.0) rotate(-5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(347.2 444.0) rotate(-5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(347.2 1244.0) rotate(-5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(1147.2 -356.0) rotate(-5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(1147.2 444.0) rotate(-5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(1147.2 1244.0) rotate(-5.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-351.6 -349.2) rotate(31.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-351.6 450.8) rotate(31.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-351.6 1250.8) rotate(31.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(448.4 -349.2) rotate(31.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(448.4 450.8) rotate(31.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(448.4 1250.8) rotate(31.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(1248.4 -349.2) rotate(31.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(1248.4 450.8) rotate(31.7) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(1248.4 1250.8) rotate(31.7) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-247.7 -349.8) rotate(8.2) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-247.7 450.2) rotate(8.2) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-247.7 1250.2) rotate(8.2) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(552.3 -349.8) rotate(8.2) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(552.3 450.2) rotate(8.2) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(552.3 1250.2) rotate(8.2) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(1352.3 -349.8) rotate(8.2) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(1352.3 450.2) rotate(8.2) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(1352.3 1250.2) rotate(8.2) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-147.9 -355.4) rotate(28.0) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-147.9 444.6) rotate(28.0) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-147.9 1244.6) rotate(28.0) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(652.1 -355.4) rotate(28.0) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(652.1 444.6) rotate(28.0) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(652.1 1244.6) rotate(28.0) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(1452.1 -355.4) rotate(28.0) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(1452.1 444.6) rotate(28.0) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(1452.1 1244.6) rotate(28.0) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-46.6 -345.5) rotate(20.9) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-46.6 454.5) rotate(20.9) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-46.6 1254.5) rotate(20.9) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(753.4 -345.5) rotate(20.9) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(753.4 454.5) rotate(20.9) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(753.4 1254.5) rotate(20.9) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1553.4 -345.5) rotate(20.9) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1553.4 454.5) rotate(20.9) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1553.4 1254.5) rotate(20.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-701.3 -251.2) rotate(-27.8) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-701.3 548.8) rotate(-27.8) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-701.3 1348.8) rotate(-27.8) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(98.7 -251.2) rotate(-27.8) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(98.7 548.8) rotate(-27.8) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(98.7 1348.8) rotate(-27.8) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(898.7 -251.2) rotate(-27.8) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(898.7 548.8) rotate(-27.8) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(898.7 1348.8) rotate(-27.8) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-598.4 -255.3) rotate(-30.3) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-598.4 544.7) rotate(-30.3) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-598.4 1344.7) rotate(-30.3) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(201.6 -255.3) rotate(-30.3) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(201.6 544.7) rotate(-30.3) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(201.6 1344.7) rotate(-30.3) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1001.6 -255.3) rotate(-30.3) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1001.6 544.7) rotate(-30.3) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1001.6 1344.7) rotate(-30.3) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-503.5 -254.1) rotate(-11.2) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-503.5 545.9) rotate(-11.2) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-503.5 1345.9) rotate(-11.2) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(296.5 -254.1) rotate(-11.2) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(296.5 545.9) rotate(-11.2) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(296.5 1345.9) rotate(-11.2) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1096.5 -254.1) rotate(-11.2) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1096.5 545.9) rotate(-11.2) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1096.5 1345.9) rotate(-11.2) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-405.4 -256.0) rotate(-24.4) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-405.4 544.0) rotate(-24.4) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-405.4 1344.0) rotate(-24.4) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(394.6 -256.0) rotate(-24.4) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(394.6 544.0) rotate(-24.4) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(394.6 1344.0) rotate(-24.4) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1194.6 -256.0) rotate(-24.4) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1194.6 544.0) rotate(-24.4) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1194.6 1344.0) rotate(-24.4) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-304.8 -251.6) rotate(-33.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-304.8 548.4) rotate(-33.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-304.8 1348.4) rotate(-33.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(495.2 -251.6) rotate(-33.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(495.2 548.4) rotate(-33.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(495.2 1348.4) rotate(-33.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1295.2 -251.6) rotate(-33.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1295.2 548.4) rotate(-33.2) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1295.2 1348.4) rotate(-33.2) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-195.5 -248.6) rotate(-24.6) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-195.5 551.4) rotate(-24.6) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-195.5 1351.4) rotate(-24.6) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(604.5 -248.6) rotate(-24.6) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(604.5 551.4) rotate(-24.6) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(604.5 1351.4) rotate(-24.6) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(1404.5 -248.6) rotate(-24.6) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(1404.5 551.4) rotate(-24.6) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(1404.5 1351.4) rotate(-24.6) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-103.0 -251.8) rotate(-9.5) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-103.0 548.2) rotate(-9.5) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(-103.0 1348.2) rotate(-9.5) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(697.0 -251.8) rotate(-9.5) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(697.0 548.2) rotate(-9.5) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(697.0 1348.2) rotate(-9.5) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(1497.0 -251.8) rotate(-9.5) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(1497.0 548.2) rotate(-9.5) scale(0.58) translate(-50 -50)"/>
+<use href="#espejo" transform="translate(1497.0 1348.2) rotate(-9.5) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-4.5 -245.8) rotate(34.5) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-4.5 554.2) rotate(34.5) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-4.5 1354.2) rotate(34.5) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(795.5 -245.8) rotate(34.5) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(795.5 554.2) rotate(34.5) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(795.5 1354.2) rotate(34.5) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(1595.5 -245.8) rotate(34.5) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(1595.5 554.2) rotate(34.5) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(1595.5 1354.2) rotate(34.5) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-750.4 -150.2) rotate(-29.0) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-750.4 649.8) rotate(-29.0) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-750.4 1449.8) rotate(-29.0) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(49.6 -150.2) rotate(-29.0) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(49.6 649.8) rotate(-29.0) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(49.6 1449.8) rotate(-29.0) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(849.6 -150.2) rotate(-29.0) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(849.6 649.8) rotate(-29.0) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(849.6 1449.8) rotate(-29.0) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-654.8 -151.9) rotate(-16.5) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-654.8 648.1) rotate(-16.5) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-654.8 1448.1) rotate(-16.5) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(145.2 -151.9) rotate(-16.5) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(145.2 648.1) rotate(-16.5) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(145.2 1448.1) rotate(-16.5) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(945.2 -151.9) rotate(-16.5) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(945.2 648.1) rotate(-16.5) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(945.2 1448.1) rotate(-16.5) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-546.1 -154.1) rotate(-33.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-546.1 645.9) rotate(-33.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-546.1 1445.9) rotate(-33.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(253.9 -154.1) rotate(-33.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(253.9 645.9) rotate(-33.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(253.9 1445.9) rotate(-33.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1053.9 -154.1) rotate(-33.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1053.9 645.9) rotate(-33.4) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1053.9 1445.9) rotate(-33.4) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-444.6 -149.7) rotate(-24.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-444.6 650.3) rotate(-24.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-444.6 1450.3) rotate(-24.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(355.4 -149.7) rotate(-24.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(355.4 650.3) rotate(-24.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(355.4 1450.3) rotate(-24.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1155.4 -149.7) rotate(-24.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1155.4 650.3) rotate(-24.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1155.4 1450.3) rotate(-24.7) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-349.5 -155.7) rotate(2.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-349.5 644.3) rotate(2.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-349.5 1444.3) rotate(2.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(450.5 -155.7) rotate(2.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(450.5 644.3) rotate(2.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(450.5 1444.3) rotate(2.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1250.5 -155.7) rotate(2.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1250.5 644.3) rotate(2.0) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1250.5 1444.3) rotate(2.0) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-244.3 -145.6) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-244.3 654.4) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-244.3 1454.4) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(555.7 -145.6) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(555.7 654.4) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(555.7 1454.4) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1355.7 -145.6) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1355.7 654.4) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1355.7 1454.4) rotate(13.7) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-152.9 -151.6) rotate(-23.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-152.9 648.4) rotate(-23.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(-152.9 1448.4) rotate(-23.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(647.1 -151.6) rotate(-23.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(647.1 648.4) rotate(-23.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(647.1 1448.4) rotate(-23.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1447.1 -151.6) rotate(-23.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1447.1 648.4) rotate(-23.3) scale(0.58) translate(-50 -50)"/>
+<use href="#bigote" transform="translate(1447.1 1448.4) rotate(-23.3) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-46.7 -149.6) rotate(19.5) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-46.7 650.4) rotate(19.5) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(-46.7 1450.4) rotate(19.5) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(753.3 -149.6) rotate(19.5) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(753.3 650.4) rotate(19.5) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(753.3 1450.4) rotate(19.5) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(1553.3 -149.6) rotate(19.5) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(1553.3 650.4) rotate(19.5) scale(0.58) translate(-50 -50)"/>
+<use href="#poste" transform="translate(1553.3 1450.4) rotate(19.5) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-702.0 -53.3) rotate(21.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-702.0 746.7) rotate(21.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(-702.0 1546.7) rotate(21.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(98.0 -53.3) rotate(21.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(98.0 746.7) rotate(21.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(98.0 1546.7) rotate(21.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(898.0 -53.3) rotate(21.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(898.0 746.7) rotate(21.8) scale(0.58) translate(-50 -50)"/>
+<use href="#pomada" transform="translate(898.0 1546.7) rotate(21.8) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-594.2 -45.8) rotate(21.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-594.2 754.2) rotate(21.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(-594.2 1554.2) rotate(21.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(205.8 -45.8) rotate(21.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(205.8 754.2) rotate(21.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(205.8 1554.2) rotate(21.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(1005.8 -45.8) rotate(21.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(1005.8 754.2) rotate(21.4) scale(0.58) translate(-50 -50)"/>
+<use href="#navaja" transform="translate(1005.8 1554.2) rotate(21.4) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-496.2 -47.1) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-496.2 752.9) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(-496.2 1552.9) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(303.8 -47.1) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(303.8 752.9) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(303.8 1552.9) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1103.8 -47.1) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1103.8 752.9) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#spray" transform="translate(1103.8 1552.9) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-399.8 -51.7) rotate(-33.0) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-399.8 748.3) rotate(-33.0) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(-399.8 1548.3) rotate(-33.0) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(400.2 -51.7) rotate(-33.0) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(400.2 748.3) rotate(-33.0) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(400.2 1548.3) rotate(-33.0) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(1200.2 -51.7) rotate(-33.0) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(1200.2 748.3) rotate(-33.0) scale(0.58) translate(-50 -50)"/>
+<use href="#tijera" transform="translate(1200.2 1548.3) rotate(-33.0) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-305.7 -52.6) rotate(-16.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-305.7 747.4) rotate(-16.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(-305.7 1547.4) rotate(-16.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(494.3 -52.6) rotate(-16.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(494.3 747.4) rotate(-16.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(494.3 1547.4) rotate(-16.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1294.3 -52.6) rotate(-16.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1294.3 747.4) rotate(-16.9) scale(0.58) translate(-50 -50)"/>
+<use href="#peine" transform="translate(1294.3 1547.4) rotate(-16.9) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-197.7 -44.5) rotate(-3.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-197.7 755.5) rotate(-3.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(-197.7 1555.5) rotate(-3.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(602.3 -44.5) rotate(-3.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(602.3 755.5) rotate(-3.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(602.3 1555.5) rotate(-3.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1402.3 -44.5) rotate(-3.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1402.3 755.5) rotate(-3.7) scale(0.58) translate(-50 -50)"/>
+<use href="#secador" transform="translate(1402.3 1555.5) rotate(-3.7) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-94.8 -44.1) rotate(31.9) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-94.8 755.9) rotate(31.9) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(-94.8 1555.9) rotate(31.9) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(705.2 -44.1) rotate(31.9) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(705.2 755.9) rotate(31.9) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(705.2 1555.9) rotate(31.9) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1505.2 -44.1) rotate(31.9) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1505.2 755.9) rotate(31.9) scale(0.58) translate(-50 -50)"/>
+<use href="#maquina" transform="translate(1505.2 1555.9) rotate(31.9) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-1.6 -53.4) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-1.6 746.6) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(-1.6 1546.6) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(798.4 -53.4) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(798.4 746.6) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(798.4 1546.6) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1598.4 -53.4) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1598.4 746.6) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+<use href="#brocha" transform="translate(1598.4 1546.6) rotate(-19.1) scale(0.58) translate(-50 -50)"/>
+</g>
+</svg>
