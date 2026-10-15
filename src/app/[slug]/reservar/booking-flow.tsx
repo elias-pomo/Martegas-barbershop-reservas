@@ -12,7 +12,7 @@ import {
   Scissors,
 } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState, useTransition } from "react";
+import { useEffect, useRef, useState, useTransition } from "react";
 import type { AvailabilityResponse } from "@/app/api/[slug]/availability/route";
 import type { BookingError } from "@/lib/booking";
 import { CalendarButtons } from "@/components/calendar-buttons";
@@ -49,8 +49,16 @@ type Service = BookingBusiness["services"][number];
 type Step = "service" | "slot" | "details" | "done";
 const STEPS: Step[] = ["service", "slot", "details"];
 
-export function BookingFlow({ business }: { business: BookingBusiness }) {
+export function BookingFlow({
+  business,
+  preferredStart = null,
+}: {
+  business: BookingBusiness;
+  /** Horario tocado en la semana del inicio: se intenta usar después de elegir el servicio. */
+  preferredStart?: string | null;
+}) {
   const [step, setStep] = useState<Step>("service");
+  const [preferred, setPreferred] = useState(preferredStart);
   const [direction, setDirection] = useState(1);
   const [service, setService] = useState<Service | null>(null);
   const [slot, setSlot] = useState<string | null>(null);
@@ -108,6 +116,8 @@ export function BookingFlow({ business }: { business: BookingBusiness }) {
           {step === "service" && (
             <ServiceStep
               services={business.services}
+              preferred={preferred}
+              timeZone={business.timeZone}
               onSelect={(s) => {
                 setService(s);
                 setSlot(null);
@@ -120,6 +130,11 @@ export function BookingFlow({ business }: { business: BookingBusiness }) {
               business={business}
               service={service}
               notice={notice}
+              preferredStart={preferred}
+              onPreferredHandled={(message) => {
+                setPreferred(null);
+                setNotice(message);
+              }}
               onSelect={(iso) => {
                 setSlot(iso);
                 setNotice(null);
@@ -175,10 +190,26 @@ function StepTitle({ children, subtitle }: { children: React.ReactNode; subtitle
 
 /* ---------- Paso 1: servicio ---------- */
 
-function ServiceStep({ services, onSelect }: { services: Service[]; onSelect: (s: Service) => void }) {
+function ServiceStep({
+  services,
+  preferred,
+  timeZone,
+  onSelect,
+}: {
+  services: Service[];
+  preferred: string | null;
+  timeZone: string;
+  onSelect: (s: Service) => void;
+}) {
   return (
     <>
       <StepTitle subtitle="Elegí qué te vas a hacer">¿Qué servicio?</StepTitle>
+      {preferred && (
+        <p className="mt-4 rounded-xl border border-accent/30 bg-accent/10 px-4 py-3 text-sm">
+          Horario elegido: <span className="font-semibold first-letter:uppercase">{formatLongDate(preferred, timeZone)}</span> a las{" "}
+          <span className="font-semibold">{formatTime(preferred, timeZone)}</span>
+        </p>
+      )}
       <ul className="mt-6 flex flex-col gap-3">
         {services.map((service) => (
           <li key={service.id}>
@@ -213,11 +244,16 @@ function SlotStep({
   business,
   service,
   notice,
+  preferredStart,
+  onPreferredHandled,
   onSelect,
 }: {
   business: BookingBusiness;
   service: Service;
   notice: string | null;
+  preferredStart: string | null;
+  /** Se llama una sola vez: con `null` si el horario sirve, o con el aviso si no alcanza. */
+  onPreferredHandled: (notice: string | null) => void;
   onSelect: (iso: string) => void;
 }) {
   const [data, setData] = useState<AvailabilityResponse | null>(null);
@@ -225,6 +261,10 @@ function SlotStep({
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
   const [attempt, setAttempt] = useState(0);
+  // Se lee una sola vez al cargar; un ref evita volver a pedir los horarios cuando se consume.
+  const preferredRef = useRef(preferredStart);
+  const handledRef = useRef(onPreferredHandled);
+  const selectRef = useRef(onSelect);
 
   useEffect(() => {
     let ignore = false;
@@ -236,6 +276,23 @@ function SlotStep({
       .then((json) => {
         if (ignore) return;
         setData(json);
+
+        const preferred = preferredRef.current;
+        if (preferred) {
+          preferredRef.current = null;
+          const iso = new Date(preferred).toISOString();
+          if (json.days.some((d) => d.slots.includes(iso))) {
+            handledRef.current(null);
+            selectRef.current(iso);
+            return;
+          }
+          handledRef.current(
+            `A las ${formatTime(iso, json.timeZone)} no hay lugar para ${service.name}. Elegí otro horario.`,
+          );
+          setSelectedDate(new Date(iso).toLocaleDateString("en-CA", { timeZone: json.timeZone }));
+          return;
+        }
+
         setSelectedDate((current) =>
           current && json.days.some((d) => d.date === current && d.slots.length)
             ? current
@@ -248,7 +305,7 @@ function SlotStep({
     return () => {
       ignore = true;
     };
-  }, [business.slug, service.id, attempt]);
+  }, [business.slug, service.id, service.name, attempt]);
 
   const day = data?.days.find((d) => d.date === selectedDate);
   const noSlotsAtAll = data && data.days.every((d) => d.slots.length === 0);

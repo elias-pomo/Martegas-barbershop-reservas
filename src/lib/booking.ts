@@ -4,11 +4,13 @@ import { db } from "./db";
 import { getBusinessBySlug, type PublicBusiness } from "./business";
 import {
   bookingWindow,
+  currentWeek,
   getAvailability,
   isSlotAvailable,
   type AvailabilityInput,
   type DayAvailability,
   type Interval,
+  weekOverview,
 } from "./domain/availability";
 import { normalizePhone } from "./domain/phone";
 import {
@@ -19,14 +21,20 @@ import {
 } from "./domain/rules";
 import { addLocalDays, atLocalTime, localDateOf, weekRange } from "./domain/time";
 
-/** Profesionales activos que hacen el servicio, con su horario y lo que ya tienen ocupado en la ventana. */
-async function loadStaffSchedules(business: PublicBusiness, serviceId: string, now: Date) {
-  const days = bookingWindow(now, business.timezone, business.settings.weekStartsOn);
+/**
+ * Profesionales activos (que hacen el servicio, si se indica), con su horario y lo que
+ * tienen ocupado entre los días locales `days[0]` y `days.at(-1)` inclusive.
+ */
+async function loadStaffSchedules(business: PublicBusiness, days: string[], serviceId?: string) {
   const from = atLocalTime(days[0], "00:00", business.timezone);
   const to = atLocalTime(addLocalDays(days.at(-1)!, 1), "00:00", business.timezone);
 
   const staff = await db.staff.findMany({
-    where: { businessId: business.id, active: true, services: { some: { serviceId } } },
+    where: {
+      businessId: business.id,
+      active: true,
+      ...(serviceId && { services: { some: { serviceId } } }),
+    },
     include: {
       workingHours: true,
       appointments: {
@@ -73,10 +81,11 @@ export async function getServiceAvailability(slug: string, serviceId: string, no
   const service = business?.services.find((s) => s.id === serviceId);
   if (!business || !service) return null;
 
-  const staff = await loadStaffSchedules(business, serviceId, now);
+  const window = bookingWindow(now, business.timezone, business.settings.weekStartsOn);
+  const staff = await loadStaffSchedules(business, window, serviceId);
   const perStaff = staff.map((s) => getAvailability(availabilityInput(business, service.durationMin, now, s)));
 
-  const days: DayAvailability[] = bookingWindow(now, business.timezone, business.settings.weekStartsOn).map(
+  const days: DayAvailability[] = window.map(
     (date, i) => {
       const starts = new Map<number, Interval>();
       for (const staffDays of perStaff) {
@@ -91,6 +100,29 @@ export async function getServiceAvailability(slug: string, serviceId: string, no
   );
 
   return { business, service, days };
+}
+
+/** Semana en curso para la página de inicio: libre / ocupado / pasado, sin datos de clientes. */
+export async function getWeekOverview(slug: string, now = new Date()) {
+  const business = await getBusinessBySlug(slug);
+  if (!business || business.services.length === 0) return null;
+
+  const s = business.settings;
+  const week = currentWeek(now, business.timezone, s.weekStartsOn);
+  const staff = await loadStaffSchedules(business, week);
+
+  return {
+    timeZone: business.timezone,
+    days: weekOverview({
+      now,
+      timeZone: business.timezone,
+      weekStartsOn: s.weekStartsOn,
+      slotIntervalMin: s.slotIntervalMin,
+      minLeadMin: s.minLeadMin,
+      durationMin: Math.min(...business.services.map((sv) => sv.durationMin)),
+      staff,
+    }),
+  };
 }
 
 export type BookingError = {
@@ -174,7 +206,11 @@ export async function createBooking(input: {
   }
 
   // Primer profesional libre en ese horario.
-  const staff = await loadStaffSchedules(business, service.id, now);
+  const staff = await loadStaffSchedules(
+    business,
+    bookingWindow(now, business.timezone, settings.weekStartsOn),
+    service.id,
+  );
   const chosen = staff.find((s) =>
     isSlotAvailable(availabilityInput(business, service.durationMin, now, s), input.startsAt),
   );

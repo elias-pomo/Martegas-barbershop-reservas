@@ -104,3 +104,54 @@ export function isSlotAvailable(input: AvailabilityInput, start: Date): boolean 
     .find((d) => d.date === day)
     ?.slots.some((s) => s.start.getTime() === start.getTime()) ?? false;
 }
+
+export type SlotState = "free" | "busy" | "past";
+
+export interface WeekOverviewDay {
+  date: LocalDate;
+  open: boolean;
+  slots: { start: Date; state: SlotState }[];
+}
+
+/** Días de la semana en curso (completa, incluso los ya pasados). */
+export function currentWeek(now: Date, timeZone: string, weekStartsOn: number): LocalDate[] {
+  const start = weekStartOf(localDateOf(now, timeZone), weekStartsOn);
+  return Array.from({ length: 7 }, (_, i) => addLocalDays(start, i));
+}
+
+/**
+ * Resumen público de la semana: cada inicio de turno como libre, ocupado o pasado.
+ * No expone quién reservó. Un horario está libre si algún profesional puede tomar
+ * un servicio de `durationMin` (el más corto) en ese momento.
+ */
+export function weekOverview(params: {
+  now: Date;
+  timeZone: string;
+  weekStartsOn: number;
+  slotIntervalMin: number;
+  minLeadMin: number;
+  durationMin: number;
+  staff: { workingHours: WorkingBlock[]; busy: Interval[] }[];
+}): WeekOverviewDay[] {
+  const earliest = params.now.getTime() + params.minLeadMin * MINUTE;
+
+  return currentWeek(params.now, params.timeZone, params.weekStartsOn).map((date) => {
+    const perStaff = params.staff.map((s) => ({
+      busy: s.busy,
+      starts: candidateStarts(date, s.workingHours, params.slotIntervalMin, params.timeZone),
+    }));
+    const allStarts = [...new Set(perStaff.flatMap((s) => s.starts.map((d) => d.getTime())))].sort((a, b) => a - b);
+
+    const slots = allStarts.map((t) => {
+      const start = new Date(t);
+      if (t < earliest) return { start, state: "past" as const };
+      const slot = { start, end: new Date(t + params.durationMin * MINUTE) };
+      const free = perStaff.some(
+        (s) => s.starts.some((d) => d.getTime() === t) && !s.busy.some((b) => overlaps(slot, b)),
+      );
+      return { start, state: free ? ("free" as const) : ("busy" as const) };
+    });
+
+    return { date, open: allStarts.length > 0, slots };
+  });
+}

@@ -3,6 +3,7 @@ import {
   bookingWindow,
   getAvailability,
   isSlotAvailable,
+  weekOverview,
   type AvailabilityInput,
   type WorkingBlock,
 } from "./availability";
@@ -105,5 +106,47 @@ describe("getAvailability", () => {
     expect(isSlotAvailable(input(), at("2026-10-12T18:30"))).toBe(false); // fuera de grilla
     expect(isSlotAvailable(input(), at("2026-10-19T18:00"))).toBe(false); // semana siguiente
     expect(isSlotAvailable(input(), at("2026-10-12T23:00"))).toBe(false); // después del último inicio
+  });
+});
+
+describe("weekOverview", () => {
+  const overview = (now: Date, busy: { start: Date; end: Date }[] = []) =>
+    weekOverview({
+      now,
+      timeZone: TZ,
+      weekStartsOn: 0,
+      slotIntervalMin: 60,
+      minLeadMin: 15,
+      durationMin: 60,
+      staff: [{ workingHours: MON_TO_SAT, busy }],
+    });
+
+  it("muestra la semana completa de domingo a sábado", () => {
+    const days = overview(at("2026-10-14T10:00"));
+    expect(days.map((d) => d.date)).toEqual([
+      "2026-10-11", "2026-10-12", "2026-10-13", "2026-10-14", "2026-10-15", "2026-10-16", "2026-10-17",
+    ]);
+    expect(days[0]).toMatchObject({ open: false, slots: [] });
+  });
+
+  it("marca pasados, ocupados y libres", () => {
+    const busy = [{ start: at("2026-10-14T18:00"), end: at("2026-10-14T19:30") }];
+    const wednesday = overview(at("2026-10-14T16:40"), busy)[3];
+    const states = Object.fromEntries(wednesday.slots.map((s) => [hours([s])[0], s.state]));
+    expect(states).toEqual({
+      "15:00": "past",
+      "16:00": "past",
+      "17:00": "free",
+      "18:00": "busy",
+      "19:00": "busy",
+      "20:00": "free",
+      "21:00": "free",
+      "22:00": "free",
+    });
+  });
+
+  it("los días anteriores de la semana quedan todos como pasados", () => {
+    const monday = overview(at("2026-10-14T10:00"))[1];
+    expect(monday.slots.every((s) => s.state === "past")).toBe(true);
   });
 });

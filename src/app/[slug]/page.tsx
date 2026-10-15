@@ -2,10 +2,14 @@ import { CalendarCheck, CalendarClock, Camera, MapPin, MessageCircle, Sparkles }
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { connection } from "next/server";
 import { Suspense } from "react";
+import { getWeekOverview } from "@/lib/booking";
 import { getBusinessBySlug } from "@/lib/business";
+import { localDateOf } from "@/lib/domain/time";
 import { waLink } from "@/lib/domain/whatsapp";
 import { formatDuration, formatPrice } from "@/lib/format";
+import { WeekView, WeekViewSkeleton } from "./week-view";
 
 export async function generateMetadata({ params }: PageProps<"/[slug]">): Promise<Metadata> {
   const business = await getBusinessBySlug((await params).slug);
@@ -67,6 +71,11 @@ async function BusinessHome({ params }: { params: PageProps<"/[slug]">["params"]
         </div>
       </nav>
 
+      {/* La semana depende de la hora actual: se transmite aparte para no frenar el resto. */}
+      <Suspense fallback={<WeekViewSkeleton />}>
+        <WeekSection slug={slug} />
+      </Suspense>
+
       <section className="mt-10">
         <h2 className="text-sm font-medium uppercase tracking-widest text-muted">Servicios</h2>
         <ul className="mt-3 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">
@@ -97,6 +106,26 @@ async function BusinessHome({ params }: { params: PageProps<"/[slug]">["params"]
         )}
       </footer>
     </>
+  );
+}
+
+async function WeekSection({ slug }: { slug: string }) {
+  await connection();
+  const now = new Date();
+  const overview = await getWeekOverview(slug, now);
+  if (!overview) return null;
+
+  return (
+    <WeekView
+      slug={slug}
+      timeZone={overview.timeZone}
+      today={localDateOf(now, overview.timeZone)}
+      days={overview.days.map((d) => ({
+        date: d.date,
+        open: d.open,
+        slots: d.slots.map((s) => ({ start: s.start.toISOString(), state: s.state })),
+      }))}
+    />
   );
 }
 
