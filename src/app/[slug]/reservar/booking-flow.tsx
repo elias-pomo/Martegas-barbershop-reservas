@@ -7,15 +7,16 @@ import {
   Check,
   ChevronRight,
   Clock,
-  Copy,
   Loader2,
   MessageCircle,
   Scissors,
 } from "lucide-react";
 import Link from "next/link";
-import { useCallback, useEffect, useState, useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import type { AvailabilityResponse } from "@/app/api/[slug]/availability/route";
 import type { BookingError } from "@/lib/booking";
+import { CalendarButtons } from "@/components/calendar-buttons";
+import { PaymentCard } from "@/components/payment-card";
 import { waLink } from "@/lib/domain/whatsapp";
 import {
   dayChipParts,
@@ -223,27 +224,31 @@ function SlotStep({
   const [failed, setFailed] = useState(false);
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
 
-  const load = useCallback(async () => {
-    setFailed(false);
-    try {
-      const res = await fetch(`/api/${business.slug}/availability?serviceId=${service.id}`, { cache: "no-store" });
-      if (!res.ok) throw new Error(String(res.status));
-      const json = (await res.json()) as AvailabilityResponse;
-      setData(json);
-      setSelectedDate((current) =>
-        current && json.days.some((d) => d.date === current && d.slots.length)
-          ? current
-          : (json.days.find((d) => d.slots.length)?.date ?? json.days[0]?.date ?? null),
-      );
-    } catch {
-      setFailed(true);
-    }
-  }, [business.slug, service.id]);
+  const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- carga inicial de datos externos
-    load();
-  }, [load]);
+    let ignore = false;
+    fetch(`/api/${business.slug}/availability?serviceId=${service.id}`, { cache: "no-store" })
+      .then((res) => {
+        if (!res.ok) throw new Error(String(res.status));
+        return res.json() as Promise<AvailabilityResponse>;
+      })
+      .then((json) => {
+        if (ignore) return;
+        setData(json);
+        setSelectedDate((current) =>
+          current && json.days.some((d) => d.date === current && d.slots.length)
+            ? current
+            : (json.days.find((d) => d.slots.length)?.date ?? json.days[0]?.date ?? null),
+        );
+      })
+      .catch(() => {
+        if (!ignore) setFailed(true);
+      });
+    return () => {
+      ignore = true;
+    };
+  }, [business.slug, service.id, attempt]);
 
   const day = data?.days.find((d) => d.date === selectedDate);
   const noSlotsAtAll = data && data.days.every((d) => d.slots.length === 0);
@@ -261,7 +266,14 @@ function SlotStep({
       {failed && (
         <div className="mt-8 text-center">
           <p className="text-muted">No pudimos cargar los horarios.</p>
-          <button type="button" onClick={load} className="mt-3 font-medium text-primary">
+          <button
+            type="button"
+            onClick={() => {
+              setFailed(false);
+              setAttempt((n) => n + 1);
+            }}
+            className="mt-3 font-medium text-primary"
+          >
             Reintentar
           </button>
         </div>
@@ -501,19 +513,6 @@ function DetailsStep({
 /* ---------- Confirmación ---------- */
 
 function DoneStep({ business, appointment }: { business: BookingBusiness; appointment: SavedAppointment }) {
-  const [copied, setCopied] = useState(false);
-
-  const copyAlias = async () => {
-    if (!business.paymentAlias) return;
-    try {
-      await navigator.clipboard.writeText(business.paymentAlias);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // portapapeles no disponible
-    }
-  };
-
   return (
     <div className="flex flex-1 flex-col pt-6">
       <div className="flex flex-col items-center text-center">
@@ -534,31 +533,23 @@ function DoneStep({ business, appointment }: { business: BookingBusiness; appoin
         {business.address && <p className="mt-1 text-sm text-muted">{business.address}</p>}
       </div>
 
-      <div className="mt-8 rounded-2xl border border-primary/40 bg-primary/10 p-4 text-center">
-        <p className="text-sm text-muted">Tu código para cancelar</p>
-        <p className="mt-1 font-mono text-4xl font-semibold tracking-[0.4em] text-primary">{appointment.code}</p>
-        <p className="mt-1 text-xs text-muted">Guardalo: lo vas a necesitar si cambiás de celular.</p>
-      </div>
-
-      {business.paymentAlias && (
-        <div className="mt-3 rounded-2xl border border-border bg-surface p-4">
-          <p className="text-sm text-muted">Pagás en el local: efectivo o transferencia</p>
-          <div className="mt-2 flex items-center justify-between gap-3">
-            <div>
-              <p className="font-mono font-semibold">{business.paymentAlias}</p>
-              {business.paymentHolder && <p className="text-xs text-muted">{business.paymentHolder}</p>}
-            </div>
-            <button
-              type="button"
-              onClick={copyAlias}
-              className="flex h-10 items-center gap-1.5 rounded-lg border border-border px-3 text-sm font-medium transition hover:bg-surface-2"
-            >
-              {copied ? <Check className="size-4 text-accent" aria-hidden /> : <Copy className="size-4" aria-hidden />}
-              {copied ? "Copiado" : "Copiar"}
-            </button>
-          </div>
+      <div className="mt-8 flex flex-col gap-3">
+        <div className="rounded-2xl border border-primary/40 bg-primary/10 p-4 text-center">
+          <p className="text-sm text-muted">Tu código para cancelar</p>
+          <p className="mt-1 font-mono text-4xl font-semibold tracking-[0.4em] text-primary">{appointment.code}</p>
+          <p className="mt-1 text-xs text-muted">Guardalo: lo vas a necesitar si cambiás de celular.</p>
         </div>
-      )}
+        <CalendarButtons
+          token={appointment.token}
+          slug={business.slug}
+          businessName={business.name}
+          address={business.address}
+          serviceName={appointment.serviceName}
+          startsAt={appointment.startsAt}
+          endsAt={appointment.endsAt}
+        />
+        {business.paymentAlias && <PaymentCard alias={business.paymentAlias} holder={business.paymentHolder} />}
+      </div>
 
       <div className="mt-auto flex flex-col gap-3 pt-8">
         <Link

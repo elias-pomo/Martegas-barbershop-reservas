@@ -24,7 +24,7 @@ npm run dev
 
 | Script | Qué hace |
 |---|---|
-| `npm test` | Tests del motor de disponibilidad y reglas |
+| `npm test` | Tests de dominio + integración contra la base local (se saltean sin `DATABASE_URL`) |
 | `npm run typecheck` | Chequeo de tipos |
 | `npm run lint` | ESLint |
 | `npm run db:studio` | Explorador visual de la base |
