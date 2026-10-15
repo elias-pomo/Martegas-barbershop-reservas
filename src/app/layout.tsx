@@ -1,9 +1,11 @@
 import type { Metadata, Viewport } from "next";
-import { Bebas_Neue, Geist } from "next/font/google";
+import { Barlow, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Barlow: letra de cartelería, combina con la Bebas del nombre y se lee bien chica.
+const body = Barlow({
+  variable: "--font-barlow",
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
@@ -28,7 +30,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es-AR" className={`${geistSans.variable} ${display.variable} h-full antialiased`}>
+    <html lang="es-AR" className={`${body.variable} ${display.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col font-sans">{children}</body>
     </html>
   );

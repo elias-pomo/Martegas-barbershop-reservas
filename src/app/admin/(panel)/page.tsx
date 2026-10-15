@@ -78,7 +78,7 @@ async function Agenda({ searchParams }: Pick<PageProps<"/admin">, "searchParams"
 
 function AgendaSkeleton() {
   return (
-    <div className="animate-pulse">
+    <div className="barber-skeleton">
       <div className="h-10 w-40 rounded-lg bg-surface" />
       <div className="mt-5 grid grid-cols-7 gap-1.5">
         {Array.from({ length: 7 }, (_, i) => (

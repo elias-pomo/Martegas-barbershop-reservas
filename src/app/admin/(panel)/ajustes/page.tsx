@@ -11,8 +11,8 @@ export const metadata: Metadata = { title: "Ajustes", robots: { index: false } }
 export default function AjustesPage() {
   return (
     <main className="mx-auto flex w-full max-w-md flex-1 flex-col px-4 pb-24 pt-[max(1rem,env(safe-area-inset-top))]">
-      <h1 className="text-2xl font-semibold tracking-tight">Ajustes</h1>
-      <Suspense fallback={<div className="mt-4 h-96 animate-pulse rounded-2xl bg-surface" />}>
+      <h1 className="font-display text-4xl leading-none tracking-wide">Ajustes</h1>
+      <Suspense fallback={<div className="mt-4 h-96 barber-skeleton rounded-2xl bg-surface" />}>
         <Settings />
       </Suspense>
     </main>

@@ -9,6 +9,8 @@ import { getBusinessBySlug } from "@/lib/business";
 import { localDateOf } from "@/lib/domain/time";
 import { waLink } from "@/lib/domain/whatsapp";
 import { formatDuration, formatPrice } from "@/lib/format";
+import { ServiceIcon } from "@/components/service-icon";
+import { OpenBadge, OpenBadgeSkeleton } from "./open-badge";
 import { WeekView, WeekViewSkeleton } from "./week-view";
 
 export async function generateMetadata({ params }: PageProps<"/[slug]">): Promise<Metadata> {
@@ -36,9 +38,8 @@ async function BusinessHome({ params }: { params: PageProps<"/[slug]">["params"]
   return (
     <>
       <header className="text-center">
-        <p className="text-xs uppercase tracking-[0.35em] text-muted">Turnos online</p>
         {/* Cartel de neón: primera palabra en morado, el resto en verde. Se prende una vez al abrir. */}
-        <h1 className="neon-power-on mt-3 font-display text-6xl leading-[0.95] tracking-wide">
+        <h1 className="neon-power-on font-display text-6xl leading-[0.95] tracking-wide">
           <span className="neon-text-purple">{nameParts.first}</span>
           {nameParts.rest && (
             <>
@@ -47,12 +48,17 @@ async function BusinessHome({ params }: { params: PageProps<"/[slug]">["params"]
             </>
           )}
         </h1>
+        <div>
+          <Suspense fallback={<OpenBadgeSkeleton />}>
+            <OpenBadge slug={slug} />
+          </Suspense>
+        </div>
         {business.address && business.mapsUrl && (
           <a
             href={business.mapsUrl}
             target="_blank"
             rel="noreferrer"
-            className="mt-3 inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground"
+            className="mt-1 inline-flex items-center gap-1.5 text-sm text-muted hover:text-foreground"
           >
             <MapPin className="size-4" aria-hidden />
             {business.address}
@@ -85,15 +91,18 @@ async function BusinessHome({ params }: { params: PageProps<"/[slug]">["params"]
       </Suspense>
 
       <section className="mt-10">
-        <h2 className="text-sm font-medium uppercase tracking-widest text-muted">Servicios</h2>
+        <h2 className="font-display text-3xl tracking-wide">Servicios</h2>
         <ul className="mt-3 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-surface">
           {business.services.map((service) => (
-            <li key={service.id} className="flex items-center justify-between px-4 py-4">
-              <div>
+            <li key={service.id} className="flex items-center gap-3 px-4 py-4">
+              <ServiceIcon name={service.name} className="size-9 shrink-0 text-[var(--neon-purple)] opacity-90" />
+              <div className="flex-1">
                 <p className="font-medium">{service.name}</p>
                 <p className="text-sm text-muted">{formatDuration(service.durationMin)}</p>
               </div>
-              <p className="font-semibold text-accent">{formatPrice(service.price)}</p>
+              <p className="text-lg font-semibold text-accent [text-shadow:0_0_10px_rgb(34_197_94_/_0.45)]">
+                {formatPrice(service.price)}
+              </p>
             </li>
           ))}
         </ul>
@@ -151,7 +160,7 @@ function SecondaryLink({ href, icon, children }: { href: string; icon: React.Rea
 
 function HomeSkeleton() {
   return (
-    <div className="animate-pulse">
+    <div className="barber-skeleton">
       <div className="mx-auto mt-6 h-14 w-4/5 rounded-xl bg-surface" />
       <div className="mt-10 h-16 rounded-2xl bg-surface" />
       <div className="mt-3 grid grid-cols-2 gap-3">

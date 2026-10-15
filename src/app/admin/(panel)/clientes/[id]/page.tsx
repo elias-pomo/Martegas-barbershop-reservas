@@ -25,7 +25,7 @@ export default function ClientePage({ params }: PageProps<"/admin/clientes/[id]"
       >
         <ArrowLeft className="size-5" />
       </Link>
-      <Suspense fallback={<div className="mt-4 h-64 animate-pulse rounded-2xl bg-surface" />}>
+      <Suspense fallback={<div className="mt-4 h-64 barber-skeleton rounded-2xl bg-surface" />}>
         <Detail params={params} />
       </Suspense>
     </main>
@@ -99,7 +99,7 @@ async function Detail({ params }: { params: PageProps<"/admin/clientes/[id]">["p
         <Tile label="Próximos" value={customer.stats.upcoming} className="text-primary" />
       </dl>
 
-      <h2 className="mt-6 text-sm font-medium uppercase tracking-widest text-muted">Historial</h2>
+      <h2 className="mt-6 font-display text-2xl tracking-wide">Historial</h2>
       {customer.appointments.length === 0 ? (
         <p className="mt-3 text-sm text-muted">Sin turnos.</p>
       ) : (

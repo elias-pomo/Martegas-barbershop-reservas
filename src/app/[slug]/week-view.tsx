@@ -41,7 +41,7 @@ export function WeekView({ slug, timeZone, today, days }: Props) {
   return (
     <section className="mt-10" aria-labelledby="semana">
       <div className="flex items-baseline justify-between">
-        <h2 id="semana" className="text-sm font-medium uppercase tracking-widest text-muted">
+        <h2 id="semana" className="font-display text-3xl tracking-wide">
           Esta semana
         </h2>
         <ul className="flex gap-3 text-[11px] text-muted">
@@ -134,7 +134,7 @@ export function WeekView({ slug, timeZone, today, days }: Props) {
 
 export function WeekViewSkeleton() {
   return (
-    <div className="mt-10 animate-pulse" aria-label="Cargando la semana">
+    <div className="mt-10 barber-skeleton" aria-label="Cargando la semana">
       <div className="h-4 w-28 rounded bg-surface" />
       <div className="mt-3 grid grid-cols-7 gap-1.5">
         {Array.from({ length: 7 }, (_, i) => (

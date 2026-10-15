@@ -17,7 +17,7 @@ export const metadata: Metadata = { title: "Mi turno", robots: { index: false } 
 export default function TurnoPage({ params }: PageProps<"/[slug]/turno/[token]">) {
   return (
     <main className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 pb-8 pt-[max(1.25rem,env(safe-area-inset-top))]">
-      <Suspense fallback={<div className="mt-16 h-64 animate-pulse rounded-2xl bg-surface" />}>
+      <Suspense fallback={<div className="mt-16 h-64 barber-skeleton rounded-2xl bg-surface" />}>
         <TurnoDetail params={params} />
       </Suspense>
     </main>

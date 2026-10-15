@@ -9,13 +9,13 @@ import {
   Clock,
   Loader2,
   MessageCircle,
-  Scissors,
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState, useTransition } from "react";
 import type { AvailabilityResponse } from "@/app/api/[slug]/availability/route";
 import type { BookingError } from "@/lib/booking";
 import { CalendarButtons } from "@/components/calendar-buttons";
+import { ServiceIcon } from "@/components/service-icon";
 import { PaymentCard } from "@/components/payment-card";
 import { waLink } from "@/lib/domain/whatsapp";
 import {
@@ -184,7 +184,7 @@ function StepDots({ current }: { current: number }) {
 function StepTitle({ children, subtitle }: { children: React.ReactNode; subtitle?: React.ReactNode }) {
   return (
     <div className="mt-6">
-      <h1 className="text-2xl font-semibold tracking-tight">{children}</h1>
+      <h1 className="font-display text-4xl leading-none tracking-wide">{children}</h1>
       {subtitle && <p className="mt-1 text-sm text-muted">{subtitle}</p>}
     </div>
   );
@@ -220,8 +220,8 @@ function ServiceStep({
               onClick={() => onSelect(service)}
               className="btn-glass group flex w-full items-center gap-4 rounded-2xl p-4 text-left"
             >
-              <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
-                <Scissors className="size-6" aria-hidden />
+              <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-[var(--neon-purple)] transition group-hover:shadow-[0_0_14px_rgb(139_92_246_/_0.45)]">
+                <ServiceIcon name={service.name} className="size-8" />
               </span>
               <span className="flex-1">
                 <span className="block text-lg font-medium">{service.name}</span>
@@ -230,7 +230,9 @@ function ServiceStep({
                   {formatDuration(service.durationMin)}
                 </span>
               </span>
-              <span className="font-semibold text-accent">{formatPrice(service.price)}</span>
+              <span className="font-semibold text-accent [text-shadow:0_0_10px_rgb(34_197_94_/_0.45)]">
+                {formatPrice(service.price)}
+              </span>
               <ChevronRight className="size-5 text-muted transition group-hover:translate-x-0.5" aria-hidden />
             </button>
           </li>
@@ -442,7 +444,7 @@ function NoSlots({ business }: { business: BookingBusiness }) {
 
 function SlotsSkeleton() {
   return (
-    <div className="mt-6 animate-pulse" aria-label="Cargando horarios">
+    <div className="mt-6 barber-skeleton" aria-label="Cargando horarios">
       <div className="flex gap-2 overflow-hidden">
         {Array.from({ length: 5 }, (_, i) => (
           <div key={i} className="h-[84px] w-16 shrink-0 rounded-2xl bg-surface" />
@@ -566,7 +568,7 @@ function DetailsStep({
         <button
           type="submit"
           disabled={pending}
-          className="btn-neon flex h-16 w-full items-center justify-center gap-2 rounded-2xl text-lg font-semibold"
+          className={`btn-neon flex h-16 w-full items-center justify-center gap-2 rounded-2xl text-lg font-semibold ${pending ? "is-loading" : ""}`}
         >
           {pending ? <Loader2 className="size-5 animate-spin" aria-hidden /> : <Check className="size-5" aria-hidden />}
           {pending ? "Confirmando…" : "Confirmar turno"}
@@ -603,7 +605,7 @@ function DoneStep({ business, appointment }: { business: BookingBusiness; appoin
       </div>
 
       <div className="mt-8 flex flex-col gap-3">
-        <div className="rounded-2xl border border-primary/40 bg-primary/10 p-4 text-center">
+        <div className="neon-flash rounded-2xl border border-primary/40 bg-primary/10 p-4 text-center">
           <p className="text-sm text-muted">Tu código para cancelar</p>
           <p className="neon-text-purple mt-1 font-mono text-4xl font-semibold tracking-[0.4em]">{appointment.code}</p>
           <p className="mt-1 text-xs text-muted">Guardalo: lo vas a necesitar si cambiás de celular.</p>

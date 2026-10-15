@@ -37,7 +37,7 @@ export function LoginForm() {
       <button
         type="submit"
         disabled={pending}
-        className="btn-neon mt-2 flex h-14 items-center justify-center gap-2 rounded-2xl text-lg font-semibold"
+        className={`btn-neon mt-2 flex h-14 items-center justify-center gap-2 rounded-2xl text-lg font-semibold ${pending ? "is-loading" : ""}`}
       >
         {pending ? <Loader2 className="size-5 animate-spin" aria-hidden /> : <LogIn className="size-5" aria-hidden />}
         Ingresar

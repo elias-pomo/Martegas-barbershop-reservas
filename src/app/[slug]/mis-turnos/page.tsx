@@ -9,7 +9,7 @@ export const metadata: Metadata = { title: "Mis turnos" };
 export default function MisTurnosPage({ params }: PageProps<"/[slug]/mis-turnos">) {
   return (
     <main className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 pb-8 pt-[max(1.25rem,env(safe-area-inset-top))]">
-      <Suspense fallback={<div className="mt-16 h-40 animate-pulse rounded-2xl bg-surface" />}>
+      <Suspense fallback={<div className="mt-16 h-40 barber-skeleton rounded-2xl bg-surface" />}>
         <Content params={params} />
       </Suspense>
     </main>

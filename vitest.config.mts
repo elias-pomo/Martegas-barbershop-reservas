@@ -13,7 +13,7 @@ export default defineConfig({
   },
   test: {
     environment: "node",
-    include: ["src/**/*.test.ts"],
+    include: ["src/**/*.test.ts", "src/**/*.test.tsx"],
     // Los tests de integración usan la base local (DATABASE_URL); se saltean si no hay.
     setupFiles: ["dotenv/config"],
     fileParallelism: false,

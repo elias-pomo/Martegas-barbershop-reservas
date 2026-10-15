@@ -37,7 +37,7 @@
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
   --color-danger: var(--danger);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-barlow);
   --font-display: var(--font-bebas);
 }
 
@@ -231,6 +231,74 @@ body {
 [class*="bg-accent/10"],
 [class*="bg-danger/10"] {
   backdrop-filter: blur(10px);
+}
+
+/*
+ * Poste de barbero: rayas diagonales que avanzan, solo mientras algo carga.
+ * `.barber-skeleton` en el contenedor de un esqueleto pinta sus bloques (bg-surface);
+ * `.is-loading` en un botón superpone las rayas mientras procesa.
+ * 56.57px = un ciclo de rayas de 40px medido en diagonal (40 / cos 45°).
+ */
+@keyframes barber-pole {
+  to {
+    background-position: 56.57px 0;
+  }
+}
+
+.barber-skeleton .bg-surface,
+.barber-skeleton.bg-surface {
+  background-color: var(--surface);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    rgb(var(--neon-purple-glow) / 0.16) 0 10px,
+    transparent 10px 20px,
+    rgb(var(--neon-green-glow) / 0.12) 20px 30px,
+    transparent 30px 40px
+  );
+  background-size: 56.57px 56.57px;
+}
+
+.is-loading::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(-45deg, rgb(255 255 255 / 0.16) 0 10px, transparent 10px 20px);
+  background-size: 28.28px 28.28px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .barber-skeleton .bg-surface,
+  .barber-skeleton.bg-surface {
+    animation: barber-pole 1.4s linear infinite;
+  }
+  .is-loading::after {
+    animation: barber-pole 0.8s linear infinite;
+  }
+}
+
+/* Al confirmar: un destello verde, como un tubo que se enciende, y queda un brillo suave. */
+@keyframes neon-flash {
+  0% {
+    box-shadow: 0 0 0 0 rgb(var(--neon-green-glow) / 0);
+    border-color: rgb(var(--neon-green-glow) / 0.2);
+  }
+  18% {
+    box-shadow:
+      0 0 0 2px var(--neon-green),
+      0 0 36px rgb(var(--neon-green-glow) / 0.85);
+    border-color: var(--neon-green);
+  }
+  100% {
+    box-shadow: 0 0 18px rgb(var(--neon-purple-glow) / 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .neon-flash {
+    animation: neon-flash 1.6s ease-out 0.35s both;
+  }
 }
 
 /* El cartel se "prende" una sola vez al abrir: dos parpadeos cortos y queda fijo. */

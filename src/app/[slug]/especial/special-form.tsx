@@ -66,7 +66,7 @@ export function SpecialRequestForm({ slug, businessName, whatsapp, surchargePerP
       >
         <ArrowLeft className="size-5" />
       </Link>
-      <h1 className="mt-4 text-2xl font-semibold tracking-tight">Turno especial</h1>
+      <h1 className="mt-4 font-display text-4xl leading-none tracking-wide">Turno especial</h1>
       <p className="mt-1 text-sm text-muted">
         Completá los datos y se abre WhatsApp con el mensaje listo para {businessName}. El precio se arregla por ahí.
       </p>

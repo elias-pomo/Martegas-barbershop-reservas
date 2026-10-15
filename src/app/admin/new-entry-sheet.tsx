@@ -285,7 +285,7 @@ function AppointmentForm({
       <button
         type="submit"
         disabled={pending}
-        className="btn-neon mt-1 flex h-14 items-center justify-center gap-2 rounded-2xl font-semibold"
+        className={`btn-neon mt-1 flex h-14 items-center justify-center gap-2 rounded-2xl font-semibold ${pending ? "is-loading" : ""}`}
       >
         {pending && <Loader2 className="size-5 animate-spin" aria-hidden />}
         Guardar turno
@@ -459,7 +459,7 @@ function BlockForm({
         <button
           type="submit"
           disabled={pending}
-          className="btn-neon mt-1 flex h-14 items-center justify-center gap-2 rounded-2xl font-semibold"
+          className={`btn-neon mt-1 flex h-14 items-center justify-center gap-2 rounded-2xl font-semibold ${pending ? "is-loading" : ""}`}
         >
           {pending && <Loader2 className="size-5 animate-spin" aria-hidden />}
           Bloquear

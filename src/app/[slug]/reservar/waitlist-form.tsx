@@ -99,7 +99,7 @@ export function WaitlistForm({
       <button
         type="submit"
         disabled={pending}
-        className="btn-neon mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-xl font-semibold"
+        className={`btn-neon mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-xl font-semibold ${pending ? "is-loading" : ""}`}
       >
         {pending && <Loader2 className="size-4 animate-spin" aria-hidden />}
         Anotarme en lista de espera

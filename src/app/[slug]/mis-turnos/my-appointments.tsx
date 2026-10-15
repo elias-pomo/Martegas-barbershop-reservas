@@ -40,10 +40,10 @@ export function MyAppointments({ slug, timeZone }: { slug: string; timeZone: str
       >
         <ArrowLeft className="size-5" />
       </Link>
-      <h1 className="mt-4 text-2xl font-semibold tracking-tight">Mis turnos</h1>
+      <h1 className="mt-4 font-display text-4xl leading-none tracking-wide">Mis turnos</h1>
 
       {appointments === null ? (
-        <div className="mt-6 h-20 animate-pulse rounded-2xl bg-surface" />
+        <div className="mt-6 h-20 barber-skeleton rounded-2xl bg-surface" />
       ) : appointments.length === 0 ? (
         <div className="mt-6 rounded-2xl border border-dashed border-border p-6 text-center">
           <p className="text-muted">No tenés turnos próximos en este celular.</p>

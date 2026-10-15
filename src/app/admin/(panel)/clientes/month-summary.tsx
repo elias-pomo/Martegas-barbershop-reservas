@@ -23,7 +23,7 @@ export function MonthSummary({ summary }: { summary: MonthlySummary }) {
       </h2>
       <table className="w-full text-sm">
         <thead>
-          <tr className="text-left text-[11px] uppercase tracking-wider text-muted">
+          <tr className="text-left text-xs text-muted">
             <th className="px-4 pb-2 pt-3 font-medium">Mes</th>
             <th className="px-2 pb-2 pt-3 text-right font-medium">Cortes</th>
             <th className="px-4 pb-2 pt-3 text-right font-medium">Cobrado</th>

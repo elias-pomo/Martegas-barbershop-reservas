@@ -12,7 +12,7 @@ export const metadata: Metadata = { title: "Clientes", robots: { index: false } 
 export default function ClientesPage() {
   return (
     <main className="mx-auto flex w-full max-w-md flex-1 flex-col px-4 pb-24 pt-[max(1rem,env(safe-area-inset-top))]">
-      <h1 className="text-2xl font-semibold tracking-tight">Clientes</h1>
+      <h1 className="font-display text-4xl leading-none tracking-wide">Clientes</h1>
       <Suspense fallback={<ListSkeleton />}>
         <Customers />
       </Suspense>
@@ -46,7 +46,7 @@ async function Customers() {
 
 function ListSkeleton() {
   return (
-    <div className="mt-4 animate-pulse">
+    <div className="mt-4 barber-skeleton">
       <div className="mb-4 h-36 rounded-2xl bg-surface" />
       <div className="h-12 rounded-xl bg-surface" />
       {Array.from({ length: 6 }, (_, i) => (

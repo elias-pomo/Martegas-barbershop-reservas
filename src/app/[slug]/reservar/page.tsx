@@ -49,7 +49,7 @@ async function Flow({
 
 function FlowSkeleton() {
   return (
-    <div className="animate-pulse">
+    <div className="barber-skeleton">
       <div className="h-10 w-24 rounded-xl bg-surface" />
       <div className="mt-8 h-8 w-2/3 rounded-lg bg-surface" />
       <div className="mt-6 h-24 rounded-2xl bg-surface" />

@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState, useTransition } from "react";
+import { Fragment, useState, useTransition } from "react";
 import { businessCancelLink, reminderLink } from "@/lib/domain/messages";
 import type { AppointmentStatus } from "@/lib/domain/rules";
 import { addLocalDays } from "@/lib/domain/time";
@@ -49,13 +49,16 @@ export function AgendaView({ data }: { data: AgendaData }) {
   const toRemind = appointments.filter((a) => a.status === "CONFIRMED" && a.start > data.now);
   const pendingReminders = toRemind.filter((a) => !a.reminderSentAt).length;
   const [remindersOpen, setRemindersOpen] = useState(false);
+  // Línea "ahora": antes de lo primero que todavía no empezó (solo en el día de hoy, con algo cargado).
+  const firstUpcoming = visibleEntries.findIndex((e) => e.start > data.now);
+  const nowIndex = day !== today || visibleEntries.length === 0 ? -1 : firstUpcoming === -1 ? visibleEntries.length : firstUpcoming;
 
   return (
     <>
       <header className="flex items-center justify-between">
         <div>
-          <p className="text-xs uppercase tracking-widest text-muted">{business.name}</p>
-          <h1 className="text-2xl font-semibold tracking-tight">Agenda</h1>
+          <p className="text-sm text-muted">{business.name}</p>
+          <h1 className="font-display text-4xl leading-none tracking-wide">Agenda</h1>
         </div>
       </header>
 
@@ -105,20 +108,24 @@ export function AgendaView({ data }: { data: AgendaData }) {
       />
 
       <ul className="mt-3 flex flex-col gap-2">
-        {visibleEntries.map((entry) => (
-          <motion.li key={`${entry.kind}-${entry.start}-${"item" in entry ? entry.item.id : ""}`} layout initial={false}>
-            {entry.kind === "appointment" && <AppointmentCard appointment={entry.item} data={data} />}
-            {entry.kind === "block" && <BlockRow block={entry.item} timeZone={business.timeZone} />}
-            {entry.kind === "free" && (
-              <FreeRow
-                start={entry.start}
-                timeZone={business.timeZone}
-                onAdd={() => setPreset({ mode: "appointment", day, time: formatTime(entry.start, business.timeZone) })}
-                onBlock={() => setPreset({ mode: "block", day, time: formatTime(entry.start, business.timeZone) })}
-              />
-            )}
-          </motion.li>
+        {visibleEntries.map((entry, i) => (
+          <Fragment key={`${entry.kind}-${entry.start}-${"item" in entry ? entry.item.id : ""}`}>
+            {i === nowIndex && <NowLine time={formatTime(data.now, business.timeZone)} />}
+            <motion.li layout initial={false}>
+              {entry.kind === "appointment" && <AppointmentCard appointment={entry.item} data={data} />}
+              {entry.kind === "block" && <BlockRow block={entry.item} timeZone={business.timeZone} />}
+              {entry.kind === "free" && (
+                <FreeRow
+                  start={entry.start}
+                  timeZone={business.timeZone}
+                  onAdd={() => setPreset({ mode: "appointment", day, time: formatTime(entry.start, business.timeZone) })}
+                  onBlock={() => setPreset({ mode: "block", day, time: formatTime(entry.start, business.timeZone) })}
+                />
+              )}
+            </motion.li>
+          </Fragment>
         ))}
+        {nowIndex === visibleEntries.length && <NowLine time={formatTime(data.now, business.timeZone)} />}
       </ul>
 
       {cancelled.length > 0 && (
@@ -162,6 +169,16 @@ export function AgendaView({ data }: { data: AgendaData }) {
 
       <NewEntrySheet business={business} preset={preset} onClose={() => setPreset(null)} />
     </>
+  );
+}
+
+/** Marca de la hora actual entre los turnos del día. */
+function NowLine({ time }: { time: string }) {
+  return (
+    <li className="flex items-center gap-2 py-0.5" aria-label={`Ahora, ${time}`}>
+      <span className="neon-text-purple w-14 shrink-0 text-center text-xs font-semibold">{time}</span>
+      <span className="neon-line flex-1 [background:linear-gradient(90deg,var(--neon-purple),transparent)]" aria-hidden />
+    </li>
   );
 }
 

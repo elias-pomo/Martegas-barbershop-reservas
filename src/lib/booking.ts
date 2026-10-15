@@ -12,6 +12,7 @@ import {
   type Interval,
   weekOverview,
 } from "./domain/availability";
+import { openStatus } from "./domain/open-status";
 import { normalizePhone } from "./domain/phone";
 import {
   ACTIVE_STATUSES,
@@ -100,6 +101,31 @@ export async function getServiceAvailability(slug: string, serviceId: string, no
   );
 
   return { business, service, days };
+}
+
+/** Abierto / cerrado ahora (y cuándo abre), para el cartel del inicio. */
+export async function getOpenStatus(slug: string, now = new Date()) {
+  const business = await getBusinessBySlug(slug);
+  if (!business) return null;
+  const staff = await db.staff.findMany({
+    where: { businessId: business.id, active: true },
+    include: {
+      workingHours: true,
+      timeOff: { where: { endsAt: { gt: now }, startsAt: { lt: new Date(now.getTime() + 8 * 86_400_000) } } },
+    },
+  });
+  return {
+    timeZone: business.timezone,
+    status: openStatus({
+      now,
+      timeZone: business.timezone,
+      workingHours: staff.flatMap((s) => s.workingHours),
+      slotIntervalMin: business.settings.slotIntervalMin,
+      // Con un solo profesional, su bloqueo cierra el local; con varios, solo si están todos bloqueados.
+      timeOff:
+        staff.length === 1 ? staff[0].timeOff.map((t) => ({ start: t.startsAt, end: t.endsAt })) : [],
+    }),
+  };
 }
 
 /** Semana en curso para la página de inicio: libre / ocupado / pasado, sin datos de clientes. */
