@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+/*
+ * Tokens de diseño. Los valores por negocio (Business.theme) se podrán inyectar
+ * sobreescribiendo estas variables, así otro negocio cambia colores sin tocar código.
+ */
+:root {
+  --background: #0a0a0b;
+  --surface: #141417;
+  --surface-2: #1c1c21;
+  --border: #2a2a31;
+  --foreground: #f4f4f5;
+  --muted: #a1a1aa;
+  --primary: #8b5cf6;
+  --primary-strong: #7c3aed;
+  --primary-foreground: #ffffff;
+  --accent: #22c55e;
+  --accent-foreground: #052e16;
+  --danger: #ef4444;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-bebas);
+}
+
+html {
+  color-scheme: dark;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
