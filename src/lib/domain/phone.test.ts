@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { normalizePhone } from "./phone";
+import { formatPhone, normalizePhone } from "./phone";
 import { renderTemplate, waLink } from "./whatsapp";
 
 describe("normalizePhone", () => {
@@ -44,5 +44,16 @@ describe("whatsapp", () => {
 
   it("reemplaza variables y deja las desconocidas", () => {
     expect(renderTemplate("Hola {nombre}, {otra}", { nombre: "Juan" })).toBe("Hola Juan, {otra}");
+  });
+});
+
+describe("formatPhone", () => {
+  it.each([
+    ["+5493811234567", "381 123-4567"],
+    ["+5491123456789", "11 2345-6789"],
+    ["+5493865123456", "3865 12-3456"],
+    ["+34641311213", "+34 641 31 12 13"],
+  ])("%s → %s", (input, expected) => {
+    expect(formatPhone(input)).toBe(expected);
   });
 });

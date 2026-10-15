@@ -25,6 +25,8 @@ npm run dev
 | Script | Qué hace |
 |---|---|
 | `npm test` | Tests de dominio + integración contra la base local (se saltean sin `DATABASE_URL`) |
+| `npm run test:responsive` | Recorre todas las pantallas en 5 anchos de celular (320–414 px) y falla si hay scroll lateral |
+| `npm run capturas` | Capturas de todas las pantallas en tamaño iPhone (`test-results/capturas`) |
 | `npm run typecheck` | Chequeo de tipos |
 | `npm run lint` | ESLint |
 | `npm run db:studio` | Explorador visual de la base |

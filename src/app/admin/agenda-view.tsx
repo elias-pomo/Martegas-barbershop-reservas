@@ -23,12 +23,18 @@ import { dayChipParts, formatLongDate, formatPrice, formatTime } from "@/lib/for
 import { changeStatus, removeBlock } from "./actions";
 import { InstallBanner } from "./install-banner";
 import { NewEntrySheet, type NewEntryPreset } from "./new-entry-sheet";
-import type { AgendaAppointment, AgendaBlock, AgendaData } from "./types";
+import type { AgendaAppointment, AgendaBlock, AgendaData, AgendaEntry } from "./types";
 import { useMessageContext } from "./use-message-context";
 
 export function AgendaView({ data }: { data: AgendaData }) {
   const { business, day, today, week, entries } = data;
   const [preset, setPreset] = useState<NewEntryPreset | null>(null);
+  const [showCancelled, setShowCancelled] = useState(false);
+
+  // Los cancelados no ocupan lugar: se agrupan al final para no ensuciar el día.
+  const isCancelled = (e: AgendaEntry) => e.kind === "appointment" && e.item.status.startsWith("CANCELLED");
+  const visibleEntries = entries.filter((e) => !isCancelled(e));
+  const cancelled = entries.filter(isCancelled);
 
   const appointments = entries.flatMap((e) => (e.kind === "appointment" && e.item.active ? [e.item] : []));
   const total = appointments.reduce((sum, a) => sum + a.price, 0);
@@ -66,7 +72,7 @@ export function AgendaView({ data }: { data: AgendaData }) {
       </div>
 
       <ul className="mt-3 flex flex-col gap-2">
-        {entries.map((entry) => (
+        {visibleEntries.map((entry) => (
           <motion.li key={`${entry.kind}-${entry.start}-${"item" in entry ? entry.item.id : ""}`} layout initial={false}>
             {entry.kind === "appointment" && <AppointmentCard appointment={entry.item} data={data} />}
             {entry.kind === "block" && <BlockRow block={entry.item} timeZone={business.timeZone} />}
@@ -81,6 +87,30 @@ export function AgendaView({ data }: { data: AgendaData }) {
           </motion.li>
         ))}
       </ul>
+
+      {cancelled.length > 0 && (
+        <div className="mt-3">
+          <button
+            type="button"
+            onClick={() => setShowCancelled((v) => !v)}
+            aria-expanded={showCancelled}
+            className="w-full py-2 text-center text-sm text-muted hover:text-foreground"
+          >
+            {showCancelled ? "Ocultar" : "Ver"} cancelados ({cancelled.length})
+          </button>
+          {showCancelled && (
+            <ul className="flex flex-col gap-2">
+              {cancelled.map((entry) =>
+                entry.kind === "appointment" ? (
+                  <li key={entry.item.id}>
+                    <AppointmentCard appointment={entry.item} data={data} />
+                  </li>
+                ) : null,
+              )}
+            </ul>
+          )}
+        </div>
+      )}
 
       {isClosedDay && (
         <p className="mt-6 rounded-2xl border border-dashed border-border p-6 text-center text-sm text-muted">

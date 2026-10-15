@@ -30,7 +30,7 @@ const STATUS_LABEL: Record<AppointmentStatus, { text: string; tone: "ok" | "mute
   NO_SHOW: { text: "No asististe", tone: "bad" },
   LATE_CANCEL: { text: "Cancelado tarde", tone: "bad" },
   CANCELLED_BY_CUSTOMER: { text: "Cancelado", tone: "bad" },
-  CANCELLED_BY_BUSINESS: { text: "Cancelado por el negocio", tone: "bad" },
+  CANCELLED_BY_BUSINESS: { text: "Cancelado", tone: "bad" },
 };
 
 const TONE = {

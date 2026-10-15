@@ -41,8 +41,18 @@ export function normalizePhone(input: string, defaultAreaCode?: string): string 
   return parsed?.isValid() ? parsed.number : null;
 }
 
-/** `+5493811234567` → `381 123-4567` (visual). */
+/**
+ * Para mostrar. Celulares argentinos sin el 0 ni el 15: `+5493811234567` → `381 123-4567`.
+ * Números de otros países, en formato internacional: `+34 641 31 12 13`.
+ */
 export function formatPhone(e164: string): string {
   const parsed = parsePhoneNumberFromString(e164);
-  return parsed ? parsed.formatNational() : e164;
+  if (!parsed) return e164;
+  if (parsed.country !== "AR") return parsed.formatInternational();
+  // formatNational da "0381 15-123-4567": se quitan el 0 de larga distancia y el 15 de celular.
+  return parsed
+    .formatNational()
+    .replace(/^0/, "")
+    .replace(/ 15-/, " ")
+    .replace(/^(\d+) (\d+)-(\d+)-(\d+)$/, "$1 $2$3-$4");
 }

@@ -58,15 +58,6 @@ export function bookingWindow(now: Date, timeZone: string, weekStartsOn: number)
   return days;
 }
 
-export function isInBookingWindow(
-  start: Date,
-  now: Date,
-  timeZone: string,
-  weekStartsOn: number,
-): boolean {
-  return bookingWindow(now, timeZone, weekStartsOn).includes(localDateOf(start, timeZone));
-}
-
 /** Inicios de turno de un día según el horario laboral, sin filtrar ocupados. */
 export function candidateStarts(
   day: LocalDate,

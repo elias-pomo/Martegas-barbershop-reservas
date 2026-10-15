@@ -16,7 +16,9 @@
     "db:deploy": "prisma migrate deploy",
     "db:seed": "prisma db seed",
     "db:studio": "prisma studio",
-    "admin:credentials": "tsx scripts/admin-credentials.ts"
+    "admin:credentials": "tsx scripts/admin-credentials.ts",
+    "test:responsive": "playwright test",
+    "capturas": "playwright test screenshots --grep @capturas"
   },
   "dependencies": {
     "@date-fns/tz": "^1.5.0",
@@ -36,6 +38,7 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^24.19.2",
     "@types/pg": "^8.23.1",

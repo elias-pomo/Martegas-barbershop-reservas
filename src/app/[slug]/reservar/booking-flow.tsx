@@ -76,8 +76,9 @@ export function BookingFlow({
     else if (step === "details") go("slot");
   };
 
+  // overflow-x-clip: el deslizamiento entre pasos no debe ensanchar la página.
   return (
-    <div className="flex flex-1 flex-col">
+    <div className="flex flex-1 flex-col overflow-x-clip">
       {step !== "done" && (
         <header className="flex items-center justify-between">
           {step === "service" ? (
@@ -431,7 +432,7 @@ function NoSlots({ business }: { business: BookingBusiness }) {
 function SlotsSkeleton() {
   return (
     <div className="mt-6 animate-pulse" aria-label="Cargando horarios">
-      <div className="flex gap-2">
+      <div className="flex gap-2 overflow-hidden">
         {Array.from({ length: 5 }, (_, i) => (
           <div key={i} className="h-[84px] w-16 shrink-0 rounded-2xl bg-surface" />
         ))}

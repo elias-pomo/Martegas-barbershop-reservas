@@ -265,7 +265,7 @@ function ServicesForm({ services }: { services: Props["services"] }) {
                 value={r.durationMin}
                 onChange={(e) => update(r.key, { durationMin: Number(e.target.value) })}
                 aria-label="Duración"
-                className="h-10 rounded-lg border border-border bg-surface px-2 text-sm"
+                className="h-10 rounded-lg border border-border bg-surface px-2 text-base"
               >
                 {DURATIONS.map((m) => (
                   <option key={m} value={m}>
@@ -283,7 +283,7 @@ function ServicesForm({ services }: { services: Props["services"] }) {
                   value={r.price}
                   onChange={(e) => update(r.key, { price: Number(e.target.value) })}
                   aria-label="Precio"
-                  className="h-10 w-full rounded-lg border border-border bg-surface pl-5 pr-2 text-sm"
+                  className="h-10 w-full rounded-lg border border-border bg-surface pl-5 pr-2 text-base"
                 />
               </div>
             </div>
@@ -329,36 +329,41 @@ function HoursForm({ hours }: { hours: Props["hours"] }) {
       <p className="mb-2 text-xs text-muted">Primer y último horario en que puede empezar un turno.</p>
       <ul className="flex flex-col gap-1.5">
         {ordered.map((r) => (
-          <li key={r.weekday} className="flex items-center gap-2 rounded-xl bg-background px-3 py-2">
-            <label className="flex w-28 shrink-0 items-center gap-2 text-sm font-medium">
-              <input
-                type="checkbox"
-                checked={r.open}
-                onChange={(e) => update(r.weekday, { open: e.target.checked })}
-                className="size-4 accent-[var(--primary)]"
-              />
-              {WEEKDAYS[r.weekday]}
-            </label>
-            {r.open ? (
-              <div className="flex flex-1 items-center gap-1 text-sm">
+          <li key={r.weekday} className="rounded-xl bg-background px-3 py-2">
+            {/* Día arriba y horas abajo: los campos de hora de iOS no entran al lado en pantallas chicas. */}
+            <div className="flex items-center justify-between gap-2">
+              <label className="flex items-center gap-2 text-sm font-medium">
                 <input
-                  type="time"
-                  value={r.firstStart}
-                  onChange={(e) => update(r.weekday, { firstStart: e.target.value })}
-                  aria-label={`${WEEKDAYS[r.weekday]} desde`}
-                  className="h-9 min-w-0 flex-1 rounded-lg border border-border bg-surface px-1.5"
+                  type="checkbox"
+                  checked={r.open}
+                  onChange={(e) => update(r.weekday, { open: e.target.checked })}
+                  className="size-4 accent-[var(--primary)]"
                 />
-                <span className="text-muted">a</span>
-                <input
-                  type="time"
-                  value={r.lastStart}
-                  onChange={(e) => update(r.weekday, { lastStart: e.target.value })}
-                  aria-label={`${WEEKDAYS[r.weekday]} hasta`}
-                  className="h-9 min-w-0 flex-1 rounded-lg border border-border bg-surface px-1.5"
-                />
+                {WEEKDAYS[r.weekday]}
+              </label>
+              {!r.open && <span className="text-sm text-muted">Cerrado</span>}
+            </div>
+            {r.open && (
+              <div className="mt-2 grid grid-cols-2 gap-2 text-sm">
+                <label className="min-w-0 text-xs text-muted">
+                  Primer turno
+                  <input
+                    type="time"
+                    value={r.firstStart}
+                    onChange={(e) => update(r.weekday, { firstStart: e.target.value })}
+                    className="mt-0.5 h-10 w-full min-w-0 rounded-lg border border-border bg-surface px-2 text-base text-foreground"
+                  />
+                </label>
+                <label className="min-w-0 text-xs text-muted">
+                  Último turno
+                  <input
+                    type="time"
+                    value={r.lastStart}
+                    onChange={(e) => update(r.weekday, { lastStart: e.target.value })}
+                    className="mt-0.5 h-10 w-full min-w-0 rounded-lg border border-border bg-surface px-2 text-base text-foreground"
+                  />
+                </label>
               </div>
-            ) : (
-              <span className="flex-1 text-sm text-muted">Cerrado</span>
             )}
           </li>
         ))}
@@ -460,7 +465,7 @@ function TemplatesForm({ templates }: { templates: Props["templates"] }) {
               value={v[f.key]}
               onChange={(e) => setV((p) => ({ ...p, [f.key]: e.target.value }))}
               rows={3}
-              className="mt-1 w-full rounded-xl border border-border bg-background p-3 text-sm outline-none focus:border-primary focus:ring-2 focus:ring-primary/30"
+              className="mt-1 w-full rounded-xl border border-border bg-background p-3 text-base outline-none focus:border-primary focus:ring-2 focus:ring-primary/30"
             />
           </label>
           <p className="text-[11px] text-muted">Variables: {f.vars}</p>
