@@ -2,6 +2,7 @@ import "server-only";
 import type { Admin } from "./auth";
 import { db } from "./db";
 import { NO_SHOW_STATUSES, type AppointmentStatus } from "./domain/rules";
+import { localDateOf, monthRange, monthStartOf } from "./domain/time";
 
 type Business = Admin["business"];
 
@@ -90,6 +91,50 @@ export async function getCustomerDetail(business: Business, id: string) {
     })),
   };
 }
+
+export interface MonthSummary {
+  /** Primer día del mes, `YYYY-MM-01`. */
+  month: string;
+  /** Cortes realizados (cuenta personas: un turno a domicilio de 3 son 3 cortes). */
+  cuts: number;
+  /** Suma de precios de los turnos asistidos. Es una estimación: no se registra el cobro. */
+  revenue: number;
+}
+
+/**
+ * Resumen del mes en curso y el anterior, más lo que queda confirmado en este mes.
+ * Llamar después de `persistAttended` para que los turnos terminados cuenten.
+ */
+export async function getMonthlySummary(business: Business, now = new Date()) {
+  const today = localDateOf(now, business.timezone);
+
+  const summarize = async (offset: number): Promise<MonthSummary> => {
+    const { start, end } = monthRange(today, business.timezone, offset);
+    const agg = await db.appointment.aggregate({
+      where: { businessId: business.id, status: "ATTENDED", startsAt: { gte: start, lt: end } },
+      _sum: { people: true, price: true },
+    });
+    return { month: monthStartOf(today, offset), cuts: agg._sum.people ?? 0, revenue: agg._sum.price ?? 0 };
+  };
+
+  const { end } = monthRange(today, business.timezone);
+  const [current, previous, pending] = await Promise.all([
+    summarize(0),
+    summarize(-1),
+    db.appointment.aggregate({
+      where: { businessId: business.id, status: "CONFIRMED", startsAt: { gte: now, lt: end } },
+      _sum: { people: true, price: true },
+    }),
+  ]);
+
+  return {
+    current,
+    previous,
+    pending: { cuts: pending._sum.people ?? 0, revenue: pending._sum.price ?? 0 },
+  };
+}
+
+export type MonthlySummary = Awaited<ReturnType<typeof getMonthlySummary>>;
 
 export async function renameCustomer(business: Business, id: string, name: string) {
   const { count } = await db.customer.updateMany({

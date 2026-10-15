@@ -51,3 +51,18 @@ export function weekRange(day: LocalDate, weekStartsOn: number, timeZone: string
     end: atLocalTime(addLocalDays(start, 7), "00:00", timeZone),
   };
 }
+
+/** Primer día (local) del mes de `day`, desplazado `offset` meses. */
+export function monthStartOf(day: LocalDate, offset = 0): LocalDate {
+  const [y, m] = day.split("-").map(Number);
+  const d = new Date(Date.UTC(y, m - 1 + offset, 1));
+  return d.toISOString().slice(0, 10);
+}
+
+/** Inicio y fin (exclusivo) en UTC del mes local de `day`, desplazado `offset` meses. */
+export function monthRange(day: LocalDate, timeZone: string, offset = 0) {
+  return {
+    start: atLocalTime(monthStartOf(day, offset), "00:00", timeZone),
+    end: atLocalTime(monthStartOf(day, offset + 1), "00:00", timeZone),
+  };
+}
