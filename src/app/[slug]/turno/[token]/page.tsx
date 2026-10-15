@@ -134,7 +134,7 @@ async function TurnoDetail({ params }: { params: PageProps<"/[slug]/turno/[token
           <p className="mt-2 text-muted">{cancelled ? "Este turno fue cancelado." : "Este turno ya pasó."}</p>
           <Link
             href={`/${slug}/reservar`}
-            className="mt-6 flex h-14 w-full items-center justify-center rounded-2xl bg-primary font-semibold text-primary-foreground transition hover:bg-primary-strong active:scale-[0.98]"
+            className="btn-neon mt-6 flex h-14 w-full items-center justify-center rounded-2xl font-semibold"
           >
             Reservar otro turno
           </Link>

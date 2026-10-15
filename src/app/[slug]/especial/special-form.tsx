@@ -172,7 +172,7 @@ function KindOption({
       aria-checked={selected}
       onClick={onSelect}
       className={`flex flex-col items-start rounded-2xl border p-4 text-left transition active:scale-[0.98] ${
-        selected ? "border-primary bg-primary/15" : "border-border bg-surface hover:border-primary/50"
+        selected ? "glow-purple border-primary bg-primary/15" : "border-border bg-surface hover:border-primary/50"
       }`}
     >
       <span className={selected ? "text-primary" : "text-muted"} aria-hidden>

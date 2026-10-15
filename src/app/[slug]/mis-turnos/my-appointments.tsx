@@ -49,7 +49,7 @@ export function MyAppointments({ slug, timeZone }: { slug: string; timeZone: str
           <p className="text-muted">No tenés turnos próximos en este celular.</p>
           <Link
             href={`/${slug}/reservar`}
-            className="mt-4 inline-flex h-12 items-center justify-center gap-2 rounded-xl bg-primary px-5 font-semibold text-primary-foreground"
+            className="btn-neon mt-4 inline-flex h-12 items-center justify-center gap-2 rounded-xl px-5 font-semibold"
           >
             <CalendarPlus className="size-4" aria-hidden />
             Reservar turno

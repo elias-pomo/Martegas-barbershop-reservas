@@ -157,7 +157,7 @@ function SaveBar({ pending, status, label = "Guardar" }: { pending: boolean; sta
         type="submit"
         disabled={pending}
         className={`flex h-12 w-full items-center justify-center gap-2 rounded-xl font-semibold transition disabled:opacity-70 ${
-          status?.ok ? "bg-accent text-accent-foreground" : "bg-primary text-primary-foreground"
+          status?.ok ? "glow-green bg-accent text-accent-foreground" : "btn-neon"
         }`}
       >
         {pending ? <Loader2 className="size-4 animate-spin" aria-hidden /> : status?.ok && <Check className="size-4" aria-hidden />}

@@ -173,7 +173,7 @@ function StepDots({ current }: { current: number }) {
         <li
           key={s}
           className={`h-1.5 rounded-full transition-all duration-300 ${
-            i === current ? "w-8 bg-primary" : i < current ? "w-4 bg-primary/60" : "w-4 bg-border"
+            i === current ? "w-8 bg-primary shadow-[0_0_8px_var(--primary)]" : i < current ? "w-4 bg-primary/60" : "w-4 bg-border"
           }`}
         />
       ))}
@@ -218,7 +218,7 @@ function ServiceStep({
             <button
               type="button"
               onClick={() => onSelect(service)}
-              className="group flex w-full items-center gap-4 rounded-2xl border border-border bg-surface p-4 text-left transition hover:border-primary/60 active:scale-[0.98]"
+              className="btn-glass group flex w-full items-center gap-4 rounded-2xl p-4 text-left"
             >
               <span className="flex size-12 shrink-0 items-center justify-center rounded-xl bg-primary/15 text-primary">
                 <Scissors className="size-6" aria-hidden />
@@ -362,12 +362,12 @@ function SlotStep({
                   aria-pressed={selected}
                   className={`flex w-16 shrink-0 flex-col items-center rounded-2xl border py-3 transition active:scale-95 ${
                     selected
-                      ? "border-primary bg-primary text-primary-foreground shadow-lg shadow-primary/25"
+                      ? "glow-purple border-primary bg-primary text-primary-foreground"
                       : available
                         ? "border-border bg-surface hover:border-primary/60"
                         : d.open
-                          ? "border-dashed border-border bg-surface/60 text-muted"
-                          : "border-transparent bg-surface/40 text-muted/50"
+                          ? "border-dashed border-border bg-surface-dim text-muted"
+                          : "border-transparent bg-surface-dim text-muted/50"
                   }`}
                 >
                   <span className="text-xs uppercase">{weekday}</span>
@@ -400,7 +400,7 @@ function SlotStep({
                     <button
                       type="button"
                       onClick={() => onSelect(iso)}
-                      className="h-14 w-full rounded-xl border border-accent/30 bg-accent/10 text-lg font-semibold text-accent transition hover:bg-accent/20 active:scale-95"
+                      className="slot-neon h-14 w-full rounded-xl text-lg font-semibold"
                     >
                       {formatTime(iso, data.timeZone)}
                     </button>
@@ -566,7 +566,7 @@ function DetailsStep({
         <button
           type="submit"
           disabled={pending}
-          className="flex h-16 w-full items-center justify-center gap-2 rounded-2xl bg-primary text-lg font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition hover:bg-primary-strong active:scale-[0.98] disabled:opacity-70"
+          className="btn-neon flex h-16 w-full items-center justify-center gap-2 rounded-2xl text-lg font-semibold"
         >
           {pending ? <Loader2 className="size-5 animate-spin" aria-hidden /> : <Check className="size-5" aria-hidden />}
           {pending ? "Confirmando…" : "Confirmar turno"}
@@ -589,7 +589,7 @@ function DoneStep({ business, appointment }: { business: BookingBusiness; appoin
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
           transition={{ type: "spring", stiffness: 260, damping: 16 }}
-          className="flex size-20 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-xl shadow-accent/30"
+          className="glow-green flex size-20 items-center justify-center rounded-full bg-accent text-accent-foreground"
         >
           <Check className="size-10" strokeWidth={3} aria-hidden />
         </motion.span>
@@ -605,7 +605,7 @@ function DoneStep({ business, appointment }: { business: BookingBusiness; appoin
       <div className="mt-8 flex flex-col gap-3">
         <div className="rounded-2xl border border-primary/40 bg-primary/10 p-4 text-center">
           <p className="text-sm text-muted">Tu código para cancelar</p>
-          <p className="mt-1 font-mono text-4xl font-semibold tracking-[0.4em] text-primary">{appointment.code}</p>
+          <p className="neon-text-purple mt-1 font-mono text-4xl font-semibold tracking-[0.4em]">{appointment.code}</p>
           <p className="mt-1 text-xs text-muted">Guardalo: lo vas a necesitar si cambiás de celular.</p>
         </div>
         <CalendarButtons
@@ -623,7 +623,7 @@ function DoneStep({ business, appointment }: { business: BookingBusiness; appoin
       <div className="mt-auto flex flex-col gap-3 pt-8">
         <Link
           href={`/${business.slug}/turno/${appointment.token}`}
-          className="flex h-14 items-center justify-center rounded-2xl bg-primary font-semibold text-primary-foreground transition hover:bg-primary-strong active:scale-[0.98]"
+          className="btn-neon flex h-14 items-center justify-center rounded-2xl font-semibold"
         >
           Ver mi turno
         </Link>

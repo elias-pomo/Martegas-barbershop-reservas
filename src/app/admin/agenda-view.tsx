@@ -155,7 +155,7 @@ export function AgendaView({ data }: { data: AgendaData }) {
         type="button"
         onClick={() => setPreset({ mode: "appointment", day })}
         aria-label="Cargar turno o bloqueo"
-        className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] right-[max(1.25rem,calc(50%-14rem+1.25rem))] flex size-16 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-xl shadow-primary/30 transition hover:bg-primary-strong active:scale-95"
+        className="fixed bottom-[calc(5rem+env(safe-area-inset-bottom))] right-[max(1.25rem,calc(50%-14rem+1.25rem))] btn-neon flex size-16 items-center justify-center rounded-full"
       >
         <Plus className="size-7" />
       </button>
@@ -188,7 +188,7 @@ function WeekStrip({ week, day, today }: { week: AgendaData["week"]; day: string
               aria-current={selected ? "date" : undefined}
               className={`relative flex h-16 flex-col items-center justify-center rounded-xl border transition active:scale-95 ${
                 selected
-                  ? "border-primary bg-primary text-primary-foreground"
+                  ? "glow-purple border-primary bg-primary text-primary-foreground"
                   : "border-border bg-surface hover:border-primary/60"
               }`}
             >
@@ -480,7 +480,7 @@ function FreeRow({
   onBlock: () => void;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-2xl border border-dashed border-border px-3 py-2">
+    <div className="flex items-center gap-3 rounded-2xl border border-dashed border-border bg-surface-dim px-3 py-2">
       <span className="w-14 text-center font-semibold text-muted">{formatTime(start, timeZone)}</span>
       <span className="flex-1 text-sm text-accent">Libre</span>
       <button
@@ -514,7 +514,7 @@ function BlockRow({ block, timeZone }: { block: AgendaBlock; timeZone: string })
     });
 
   return (
-    <div className="flex items-center gap-3 rounded-2xl bg-surface-2/60 px-3 py-2 text-muted">
+    <div className="flex items-center gap-3 rounded-2xl bg-surface-2 px-3 py-2 text-muted">
       <span className="w-14 text-center text-sm font-semibold">{allDay ? "—" : formatTime(block.start, timeZone)}</span>
       <span className="flex-1 text-sm">
         {allDay ? "Bloqueado todo el día" : `Bloqueado hasta ${formatTime(block.end, timeZone)}`}

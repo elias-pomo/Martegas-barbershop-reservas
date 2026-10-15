@@ -36,7 +36,7 @@ export function WaitlistForm({
   if (joined) {
     return (
       <div className="mt-4 flex flex-col items-center rounded-2xl border border-accent/30 bg-accent/10 p-5 text-center">
-        <span className="flex size-12 items-center justify-center rounded-full bg-accent text-accent-foreground">
+        <span className="glow-green flex size-12 items-center justify-center rounded-full bg-accent text-accent-foreground">
           <Check className="size-6" strokeWidth={3} aria-hidden />
         </span>
         <p className="mt-3 font-semibold">¡Te anotamos!</p>
@@ -99,7 +99,7 @@ export function WaitlistForm({
       <button
         type="submit"
         disabled={pending}
-        className="mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary font-semibold text-primary-foreground disabled:opacity-70"
+        className="btn-neon mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-xl font-semibold"
       >
         {pending && <Loader2 className="size-4 animate-spin" aria-hidden />}
         Anotarme en lista de espera

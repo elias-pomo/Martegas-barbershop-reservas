@@ -48,7 +48,7 @@ export function NewEntrySheet({
             role="tab"
             aria-selected={mode === m}
             onClick={() => setMode(m)}
-            className={`h-10 rounded-lg text-sm font-medium transition ${mode === m ? "bg-primary text-primary-foreground" : "text-muted"}`}
+            className={`h-10 rounded-lg text-sm font-medium transition ${mode === m ? "glow-purple bg-primary text-primary-foreground" : "text-muted"}`}
           >
             {m === "appointment" ? "Turno" : "Bloqueo"}
           </button>
@@ -285,7 +285,7 @@ function AppointmentForm({
       <button
         type="submit"
         disabled={pending}
-        className="mt-1 flex h-14 items-center justify-center gap-2 rounded-2xl bg-primary font-semibold text-primary-foreground disabled:opacity-70"
+        className="btn-neon mt-1 flex h-14 items-center justify-center gap-2 rounded-2xl font-semibold"
       >
         {pending && <Loader2 className="size-5 animate-spin" aria-hidden />}
         Guardar turno
@@ -459,7 +459,7 @@ function BlockForm({
         <button
           type="submit"
           disabled={pending}
-          className="mt-1 flex h-14 items-center justify-center gap-2 rounded-2xl bg-primary font-semibold text-primary-foreground disabled:opacity-70"
+          className="btn-neon mt-1 flex h-14 items-center justify-center gap-2 rounded-2xl font-semibold"
         >
           {pending && <Loader2 className="size-5 animate-spin" aria-hidden />}
           Bloquear

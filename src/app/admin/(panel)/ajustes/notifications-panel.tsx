@@ -121,7 +121,7 @@ export function NotificationsPanel({ vapidKey }: { vapidKey: string | null }) {
             type="button"
             onClick={enable}
             disabled={pending}
-            className="mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-primary font-semibold text-primary-foreground disabled:opacity-70"
+            className="btn-neon mt-3 flex h-12 w-full items-center justify-center gap-2 rounded-xl font-semibold"
           >
             {pending ? <Loader2 className="size-4 animate-spin" aria-hidden /> : <Bell className="size-4" aria-hidden />}
             Activar avisos

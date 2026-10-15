@@ -20,9 +20,9 @@ interface Props {
 }
 
 const SLOT_STYLE: Record<SlotState, string> = {
-  free: "border-accent/30 bg-accent/10 text-accent hover:bg-accent/20 active:scale-95",
+  free: "slot-neon",
   busy: "border-primary/25 bg-primary/10 text-primary/70",
-  past: "border-transparent bg-surface/50 text-muted/40 line-through",
+  past: "border-transparent bg-surface-dim text-muted/40 line-through",
 };
 
 const SLOT_LABEL: Record<SlotState, string> = { free: "libre", busy: "ocupado", past: "pasado" };
@@ -46,7 +46,7 @@ export function WeekView({ slug, timeZone, today, days }: Props) {
         </h2>
         <ul className="flex gap-3 text-[11px] text-muted">
           <li className="flex items-center gap-1">
-            <span className="size-2 rounded-full bg-accent" aria-hidden /> Libre
+            <span className="size-2 rounded-full bg-accent shadow-[0_0_6px_var(--accent)]" aria-hidden /> Libre
           </li>
           <li className="flex items-center gap-1">
             <span className="size-2 rounded-full bg-primary/70" aria-hidden /> Ocupado
@@ -69,9 +69,9 @@ export function WeekView({ slug, timeZone, today, days }: Props) {
               aria-label={`${weekday} ${num}: ${d.open ? `${free} turnos libres` : "cerrado"}`}
               className={`relative flex flex-col items-center rounded-xl border py-2 transition active:scale-95 ${
                 isSelected
-                  ? "border-primary bg-primary text-primary-foreground"
+                  ? "glow-purple border-primary bg-primary text-primary-foreground"
                   : isPast || !d.open
-                    ? "border-transparent bg-surface/40 text-muted/50"
+                    ? "border-transparent bg-surface-dim text-muted/50"
                     : "border-border bg-surface hover:border-primary/60"
               }`}
             >

@@ -30,15 +30,22 @@ async function BusinessHome({ params }: { params: PageProps<"/[slug]">["params"]
   const { slug } = await params;
   const business = await getBusinessBySlug(slug);
   if (!business) notFound();
+  const [first, ...rest] = business.name.trim().split(/\s+/);
+  const nameParts = { first, rest: rest.join(" ") };
 
   return (
     <>
       <header className="text-center">
         <p className="text-xs uppercase tracking-[0.35em] text-muted">Turnos online</p>
-        <h1 className="mt-2 font-display text-6xl leading-none tracking-wide">
-          <span className="bg-gradient-to-r from-primary via-fuchsia-400 to-accent bg-clip-text text-transparent">
-            {business.name}
-          </span>
+        {/* Cartel de neón: primera palabra en morado, el resto en verde. Se prende una vez al abrir. */}
+        <h1 className="neon-power-on mt-3 font-display text-6xl leading-[0.95] tracking-wide">
+          <span className="neon-text-purple">{nameParts.first}</span>
+          {nameParts.rest && (
+            <>
+              <br />
+              <span className="neon-text-green">{nameParts.rest}</span>
+            </>
+          )}
         </h1>
         {business.address && business.mapsUrl && (
           <a
@@ -51,12 +58,13 @@ async function BusinessHome({ params }: { params: PageProps<"/[slug]">["params"]
             {business.address}
           </a>
         )}
+        <div className="neon-line mx-auto mt-6 w-2/3" aria-hidden />
       </header>
 
       <nav className="mt-10 flex flex-col gap-3">
         <Link
           href={`/${slug}/reservar`}
-          className="flex h-16 items-center justify-center gap-2 rounded-2xl bg-primary text-lg font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition active:scale-[0.98] hover:bg-primary-strong"
+          className="btn-neon flex h-16 items-center justify-center gap-2 rounded-2xl text-lg font-semibold"
         >
           <CalendarCheck className="size-5" aria-hidden />
           Reservar turno
@@ -133,9 +141,9 @@ function SecondaryLink({ href, icon, children }: { href: string; icon: React.Rea
   return (
     <Link
       href={href}
-      className="flex h-14 items-center justify-center gap-2 rounded-2xl border border-border bg-surface font-medium transition active:scale-[0.98] hover:bg-surface-2"
+      className="btn-glass flex h-14 items-center justify-center gap-2 rounded-2xl font-medium"
     >
-      <span aria-hidden className="text-primary">{icon}</span>
+      <span aria-hidden className="text-[var(--neon-purple)] drop-shadow-[0_0_6px_rgb(139_92_246_/_0.8)]">{icon}</span>
       {children}
     </Link>
   );
