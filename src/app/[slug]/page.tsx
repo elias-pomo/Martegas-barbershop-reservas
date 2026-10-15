@@ -5,7 +5,7 @@ import { notFound } from "next/navigation";
 import { Suspense } from "react";
 import { getBusinessBySlug } from "@/lib/business";
 import { waLink } from "@/lib/domain/whatsapp";
-import { formatPrice } from "@/lib/format";
+import { formatDuration, formatPrice } from "@/lib/format";
 
 export async function generateMetadata({ params }: PageProps<"/[slug]">): Promise<Metadata> {
   const business = await getBusinessBySlug((await params).slug);
@@ -110,12 +110,6 @@ function SecondaryLink({ href, icon, children }: { href: string; icon: React.Rea
       {children}
     </Link>
   );
-}
-
-function formatDuration(min: number) {
-  const h = Math.floor(min / 60);
-  const m = min % 60;
-  return [h && `${h} h`, m && `${m} min`].filter(Boolean).join(" ");
 }
 
 function HomeSkeleton() {
