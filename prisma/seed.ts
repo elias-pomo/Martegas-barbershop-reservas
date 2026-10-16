@@ -30,8 +30,8 @@ async function main() {
       slug: SLUG,
       name: "Martega's Barber Shop",
       timezone: "America/Argentina/Tucuman",
-      address: "Lavalle 856, San Miguel de Tucumán",
-      mapsUrl: "https://www.google.com/maps/search/?api=1&query=Lavalle+856+San+Miguel+de+Tucum%C3%A1n",
+      address: "Lavalle 864, San Miguel de Tucumán",
+      mapsUrl: "https://www.google.com/maps/search/?api=1&query=Lavalle+864+San+Miguel+de+Tucum%C3%A1n",
       whatsapp: "+34641311213",
       instagram: "https://www.instagram.com/martindiaz7_",
       // Placeholder hasta que el barbero pase los datos reales (se edita desde Ajustes).

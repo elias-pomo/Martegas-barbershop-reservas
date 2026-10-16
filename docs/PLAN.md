@@ -11,7 +11,7 @@ Primer cliente: **Martega's Barber Shop**.
 |---|---|
 | Nombre | Martega's Barber Shop |
 | Slug | `martegas` |
-| Dirección | Lavalle 856, San Miguel de Tucumán |
+| Dirección | Lavalle 864, San Miguel de Tucumán |
 | Zona horaria | `America/Argentina/Tucuman` |
 | WhatsApp del barbero | +34 641 311 213 → `wa.me/34641311213` (número español, intencional) |
 | Instagram | https://www.instagram.com/martindiaz7_ |
@@ -78,7 +78,7 @@ Precios editables desde el panel.
 - **Cancelación por parte del barbero:** al cancelar o bloquear un día con turnos, arma los WhatsApp para avisar a cada afectado.
 
 ### Mensajes de WhatsApp (plantillas editables)
-- Recordatorio: "Hola {nombre}! Te recuerdo tu turno de {servicio} hoy a las {hora} en Martega's Barber Shop, Lavalle 856. ¡Te espero!"
+- Recordatorio: "Hola {nombre}! Te recuerdo tu turno de {servicio} hoy a las {hora} en Martega's Barber Shop, Lavalle 864. ¡Te espero!"
 - Cancelación del barbero: "Hola {nombre}, tuve un imprevisto y tengo que cancelar tu turno del {día} a las {hora}. Podés reservar otro en {link}. Disculpá!"
 - Genérico: "Hola {nombre}! "
 - Link: `https://wa.me/5493811234567?text=...` (cliente) / `wa.me/34641311213` (barbero).
