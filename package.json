@@ -19,9 +19,9 @@
     "admin:credentials": "tsx scripts/admin-credentials.ts",
     "test:responsive": "playwright test",
     "capturas": "playwright test screenshots --grep @capturas",
-    "db:prod:migrate": "node --env-file=.env.production.local scripts/prod-guard.mjs && node --env-file=.env.production.local node_modules/prisma/build/index.js migrate deploy",
-    "db:prod:seed": "node --env-file=.env.production.local scripts/prod-guard.mjs && node --env-file=.env.production.local node_modules/tsx/dist/cli.mjs prisma/seed.ts",
-    "db:prod:status": "node --env-file=.env.production.local scripts/prod-guard.mjs && node --env-file=.env.production.local node_modules/prisma/build/index.js migrate status"
+    "db:prod:migrate": "node --env-file=.env.produccion scripts/prod-guard.mjs && node --env-file=.env.produccion node_modules/prisma/build/index.js migrate deploy",
+    "db:prod:seed": "node --env-file=.env.produccion scripts/prod-guard.mjs && node --env-file=.env.produccion node_modules/tsx/dist/cli.mjs prisma/seed.ts",
+    "db:prod:status": "node --env-file=.env.produccion scripts/prod-guard.mjs && node --env-file=.env.produccion node_modules/prisma/build/index.js migrate status"
   },
   "dependencies": {
     "@date-fns/tz": "^1.5.0",

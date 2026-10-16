@@ -1,18 +1,28 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow, Bebas_Neue } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
+/*
+ * Fuentes incluidas en el proyecto (src/app/fonts, licencia OFL): el build no depende de
+ * descargar nada de Google Fonts, que puede fallar en el deploy.
+ */
+
 // Barlow: letra de cartelería, combina con la Bebas del nombre y se lee bien chica.
-const body = Barlow({
+const body = localFont({
   variable: "--font-barlow",
-  weight: ["400", "500", "600", "700"],
-  subsets: ["latin"],
+  display: "swap",
+  src: [
+    { path: "./fonts/barlow-400.woff2", weight: "400", style: "normal" },
+    { path: "./fonts/barlow-500.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/barlow-600.woff2", weight: "600", style: "normal" },
+    { path: "./fonts/barlow-700.woff2", weight: "700", style: "normal" },
+  ],
 });
 
-const display = Bebas_Neue({
+const display = localFont({
   variable: "--font-bebas",
-  weight: "400",
-  subsets: ["latin"],
+  display: "swap",
+  src: [{ path: "./fonts/bebas-neue-400.woff2", weight: "400", style: "normal" }],
 });
 
 export const metadata: Metadata = {
